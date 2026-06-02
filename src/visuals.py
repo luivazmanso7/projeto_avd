@@ -265,9 +265,87 @@ def feature_importance_bar(importance: pd.DataFrame) -> go.Figure:
         orientation="h",
         color="importance",
         color_continuous_scale=["#DDE7EE", "#2A9D8F", "#E76F51"],
-        labels={"importance": "Importancia", "feature": ""},
+        labels={"importance": "Impacto no MAE", "feature": ""},
     )
     fig.update_coloraxes(showscale=False)
-    fig = apply_layout(fig, "Variaveis mais usadas pelo modelo")
+    fig = apply_layout(fig, "Impacto das variaveis no erro")
     fig.update_layout(margin={"l": 230, "r": 34, "t": 78, "b": 72})
+    return fig
+
+
+def model_mae_bar(metrics: pd.DataFrame) -> go.Figure:
+    plot_df = metrics.sort_values("mae_teste", ascending=False)
+    colors = np.where(plot_df["selecionado"], ACCENT, "#2F6F9F")
+    fig = go.Figure(
+        go.Bar(
+            x=plot_df["mae_teste"],
+            y=plot_df["modelo"],
+            orientation="h",
+            marker_color=colors,
+            customdata=plot_df[["mae_cv", "rmse_teste", "r2_teste"]],
+            hovertemplate=(
+                "MAE teste: £%{x:.2f}<br>"
+                "MAE CV: £%{customdata[0]:.2f}<br>"
+                "RMSE teste: £%{customdata[1]:.2f}<br>"
+                "R2 teste: %{customdata[2]:.3f}<extra></extra>"
+            ),
+        )
+    )
+    fig.update_xaxes(title="Erro absoluto medio no teste (£)")
+    fig.update_yaxes(title="")
+    fig.update_layout(showlegend=False)
+    fig = apply_layout(fig, "Comparacao de modelos", height=380)
+    fig.update_layout(margin={"l": 170, "r": 34, "t": 78, "b": 72})
+    return fig
+
+
+def predicted_vs_actual_scatter(residuals: pd.DataFrame) -> go.Figure:
+    if residuals.empty:
+        fig = go.Figure()
+        fig.add_annotation(
+            text="Sem previsoes de teste disponiveis",
+            x=0.5,
+            y=0.5,
+            showarrow=False,
+            font={"color": MUTED, "size": 15},
+        )
+        fig.update_xaxes(visible=False)
+        fig.update_yaxes(visible=False)
+        return apply_layout(fig, "Preco real vs previsto")
+
+    limit_min = min(residuals["preco_real"].min(), residuals["preco_previsto"].min())
+    limit_max = max(residuals["preco_real"].max(), residuals["preco_previsto"].max())
+    fig = px.scatter(
+        residuals,
+        x="preco_real",
+        y="preco_previsto",
+        color="erro_absoluto",
+        color_continuous_scale=["#2A9D8F", "#E9C46A", "#E76F51"],
+        hover_name="title",
+        hover_data={
+            "category": True,
+            "preco_real": ":.2f",
+            "preco_previsto": ":.2f",
+            "erro": ":.2f",
+            "erro_absoluto": ":.2f",
+        },
+        labels={
+            "preco_real": "Preco real (£)",
+            "preco_previsto": "Preco previsto (£)",
+            "erro_absoluto": "Erro absoluto",
+        },
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=[limit_min, limit_max],
+            y=[limit_min, limit_max],
+            mode="lines",
+            line={"color": INK, "dash": "dash", "width": 1.5},
+            hoverinfo="skip",
+            showlegend=False,
+        )
+    )
+    fig.update_coloraxes(showscale=False)
+    fig = apply_layout(fig, "Preco real vs previsto")
+    fig.update_layout(margin={"l": 82, "r": 34, "t": 78, "b": 72})
     return fig

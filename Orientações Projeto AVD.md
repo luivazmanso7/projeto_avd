@@ -35,7 +35,7 @@ Rubrica de Avaliação**
 | **Qualidade Analítica**  | 2.0  | Uso correto de funções estatísticas e interpretação dos resultados. |
 | **Design e Gestalt**  | 3.0  | Visualizações limpas, com hierarquia visual e storytelling claro. |
 | **Implementação  Streamlit** | 2.5  | Aplicação estável, interativa e visualmente profissional. |
-| **Bônus (Inovação)**  | \+1.0  | Uso de Machine Learning ou Análise de  Sentimento. |
+| **Bônus (Inovação)**  | \+1.0  | Uso de Machexeine Learning ou Análise de  Sentimento. |
 
 **Bibliografia de Referência** 
 •    

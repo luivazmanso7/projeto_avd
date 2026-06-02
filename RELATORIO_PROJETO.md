@@ -11,7 +11,7 @@ Analisar o comportamento de precos de livros em um catalogo de e-commerce, obser
 3. **Estatistica:** correlacao de Pearson entre preco e variaveis numericas, ANOVA para diferencas entre grupos, quartis e IQR.
 4. **Visualizacao:** graficos com ordenacao intencional, destaque cromatico moderado, comparacao por proximidade e consistencia de codificacao visual.
 5. **Aplicacao:** dashboard Streamlit com filtros e abas analiticas.
-6. **Inovacao:** Random Forest para estimar preco e indicar importancia das variaveis.
+6. **Inovacao:** comparacao entre baseline, regressao regularizada e modelos de ensemble para estimar preco, com validacao cruzada, teste holdout, importancia por permutacao e analise de residuos.
 
 ## Dicionario de variaveis principais
 

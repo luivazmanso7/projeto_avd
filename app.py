@@ -14,12 +14,14 @@ from src.analysis import (
     quartile_summary,
 )
 from src.config import PROCESSED_BOOKS_PATH, RAW_BOOKS_PATH
-from src.etl import save_processed_books, transform_books
+from src.etl import save_processed_books, title_tone_score, transform_books
 from src.scraper import save_raw_books, scrape_books
 from src.visuals import (
     category_median_bar,
     correlation_bar,
     feature_importance_bar,
+    model_mae_bar,
+    predicted_vs_actual_scatter,
     price_histogram,
     quartile_bar,
     rating_price_box,
@@ -107,6 +109,14 @@ def collect_data(max_pages: int) -> pd.DataFrame:
     clean_df = transform_books(raw_df)
     save_processed_books(clean_df)
     return clean_df
+
+
+@st.cache_resource(
+    show_spinner=False,
+    hash_funcs={pd.DataFrame: lambda data: str(pd.util.hash_pandas_object(data, index=True).sum())},
+)
+def train_ml_report(df: pd.DataFrame) -> dict[str, object]:
+    return build_ml_model(df, include_estimator=True)
 
 
 def sidebar_filters(df: pd.DataFrame) -> pd.DataFrame:
@@ -302,23 +312,161 @@ def render_segments(df: pd.DataFrame) -> None:
     )
 
 
+def word_count(value: str) -> int:
+    return len(value.split())
+
+
+def render_price_simulator(df: pd.DataFrame, model_report: dict[str, object]) -> None:
+    estimator = model_report.get("estimator")
+    if estimator is None:
+        return
+
+    st.subheader("Simulador de preco")
+    categories = sorted(df["category"].dropna().unique())
+    availability_options = sorted(df["availability_status"].dropna().unique())
+    default_availability = (
+        availability_options.index("Disponivel") if "Disponivel" in availability_options else 0
+    )
+
+    left, right = st.columns(2)
+    with left:
+        category = st.selectbox("Categoria", categories, key="ml_category")
+        rating = st.slider("Avaliacao", 1, 5, int(df["rating"].median()), key="ml_rating")
+        stock_quantity = st.number_input(
+            "Estoque declarado",
+            min_value=0,
+            max_value=max(100, int(df["stock_quantity"].max()) + 20),
+            value=int(df["stock_quantity"].median()),
+            step=1,
+            key="ml_stock",
+        )
+        num_reviews = st.number_input(
+            "Reviews",
+            min_value=0,
+            max_value=1000,
+            value=int(df["num_reviews"].median()),
+            step=1,
+            key="ml_reviews",
+        )
+    with right:
+        availability_status = st.selectbox(
+            "Disponibilidade",
+            availability_options,
+            index=default_availability,
+            key="ml_availability",
+        )
+        title = st.text_input(
+            "Titulo",
+            value="Data stories for practical readers",
+            key="ml_title",
+        )
+        description = st.text_area(
+            "Descricao",
+            value="A clear and practical book for readers interested in data analysis.",
+            height=118,
+            key="ml_description",
+        )
+
+    features = pd.DataFrame(
+        [
+            {
+                "rating": rating,
+                "stock_quantity": stock_quantity,
+                "title_word_count": word_count(title),
+                "title_char_count": len(title),
+                "description_word_count": word_count(description),
+                "title_tone_score": title_tone_score(title),
+                "num_reviews": num_reviews,
+                "category": category,
+                "availability_status": availability_status,
+            }
+        ]
+    )
+    predicted_price = float(estimator.predict(features)[0])
+    category_median = float(df.loc[df["category"].eq(category), "price_gbp"].median())
+    delta = predicted_price - category_median
+
+    predicted, median, difference = st.columns(3)
+    predicted.metric("Preco previsto", currency(predicted_price))
+    median.metric("Mediana da categoria", currency(category_median))
+    difference.metric("Diferenca", currency(delta))
+
+
 def render_model(df: pd.DataFrame) -> None:
-    model_report = build_ml_model(df)
+    model_report = train_ml_report(df)
     if not model_report.get("available"):
         st.warning(str(model_report.get("reason", "Modelo indisponivel.")))
         return
 
-    left, middle, right = st.columns(3)
-    left.metric("Algoritmo", str(model_report["algorithm"]))
-    middle.metric("MAE", currency(float(model_report["mae"])))
-    right.metric("R2", f"{float(model_report['r2']):.3f}")
+    model, mae, rmse, r2, improvement = st.columns(5)
+    model.metric("Modelo", str(model_report["algorithm"]))
+    mae.metric("MAE teste", currency(float(model_report["mae"])))
+    rmse.metric("RMSE teste", currency(float(model_report["rmse"])))
+    r2.metric("R2 teste", f"{float(model_report['r2']):.3f}")
+    improvement.metric(
+        "Ganho vs baseline",
+        f"{float(model_report['improvement_vs_baseline_pct']):.1f}%",
+    )
+    if float(model_report["improvement_vs_baseline_pct"]) <= 0:
+        st.info(
+            "A baseline venceu neste recorte. Isso indica que os atributos coletados "
+            "nao explicam o preco melhor do que usar a mediana historica."
+        )
+
+    left, right = st.columns([0.95, 1.05])
+    with left:
+        st.plotly_chart(
+            model_mae_bar(model_report["model_metrics"]),
+            use_container_width=True,
+            theme=None,
+            config=PLOT_CONFIG,
+        )
+    with right:
+        st.plotly_chart(
+            predicted_vs_actual_scatter(model_report["residuals"]),
+            use_container_width=True,
+            theme=None,
+            config=PLOT_CONFIG,
+        )
+
+    st.subheader("Metrica por modelo")
+    st.dataframe(
+        model_report["model_metrics"].assign(
+            mae_cv=lambda data: data["mae_cv"].round(2),
+            rmse_cv=lambda data: data["rmse_cv"].round(2),
+            r2_cv=lambda data: data["r2_cv"].round(3),
+            mae_teste=lambda data: data["mae_teste"].round(2),
+            rmse_teste=lambda data: data["rmse_teste"].round(2),
+            r2_teste=lambda data: data["r2_teste"].round(3),
+        ),
+        use_container_width=True,
+        hide_index=True,
+    )
 
     importance = model_report["feature_importance"]
-    st.plotly_chart(
-        feature_importance_bar(importance),
+    left, right = st.columns([0.95, 1.05])
+    with left:
+        st.plotly_chart(
+            feature_importance_bar(importance),
+            use_container_width=True,
+            theme=None,
+            config=PLOT_CONFIG,
+        )
+    with right:
+        render_price_simulator(df, model_report)
+
+    st.subheader("Maiores erros no teste")
+    st.dataframe(
+        model_report["residuals"]
+        .head(10)
+        .assign(
+            preco_real=lambda data: data["preco_real"].round(2),
+            preco_previsto=lambda data: data["preco_previsto"].round(2),
+            erro=lambda data: data["erro"].round(2),
+            erro_absoluto=lambda data: data["erro_absoluto"].round(2),
+        ),
         use_container_width=True,
-        theme=None,
-        config=PLOT_CONFIG,
+        hide_index=True,
     )
 
 

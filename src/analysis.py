@@ -9,10 +9,13 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.dummy import DummyRegressor
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from sklearn.impute import SimpleImputer
-from sklearn.metrics import mean_absolute_error, r2_score
-from sklearn.model_selection import train_test_split
+from sklearn.inspection import permutation_importance
+from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_absolute_error, r2_score, root_mean_squared_error
+from sklearn.model_selection import cross_validate, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
@@ -30,6 +33,18 @@ NUMERIC_FEATURES = [
 ]
 
 CATEGORICAL_FEATURES = ["category", "availability_status"]
+
+FEATURE_LABELS = {
+    "rating": "Avaliacao",
+    "stock_quantity": "Estoque declarado",
+    "title_word_count": "Palavras no titulo",
+    "title_char_count": "Caracteres no titulo",
+    "description_word_count": "Palavras na descricao",
+    "title_tone_score": "Tom do titulo",
+    "num_reviews": "Reviews",
+    "category": "Categoria",
+    "availability_status": "Disponibilidade",
+}
 
 
 def pearson_correlations(
@@ -154,20 +169,15 @@ def outlier_table(df: pd.DataFrame) -> pd.DataFrame:
     return df.loc[df["is_price_outlier"], columns].sort_values("price_gbp", ascending=False)
 
 
-def build_ml_model(df: pd.DataFrame) -> dict[str, object]:
-    model_df = df[NUMERIC_FEATURES + CATEGORICAL_FEATURES + ["price_gbp"]].dropna()
-    if len(model_df) < 40:
-        return {"available": False, "reason": "Amostra insuficiente para treino e teste."}
-
-    x = model_df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
-    y = model_df["price_gbp"]
-
+def make_one_hot_encoder() -> OneHotEncoder:
     try:
-        encoder = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+        return OneHotEncoder(handle_unknown="ignore", sparse_output=False)
     except TypeError:
-        encoder = OneHotEncoder(handle_unknown="ignore", sparse=False)
+        return OneHotEncoder(handle_unknown="ignore", sparse=False)
 
-    preprocessor = ColumnTransformer(
+
+def build_preprocessor() -> ColumnTransformer:
+    return ColumnTransformer(
         transformers=[
             ("numeric", SimpleImputer(strategy="median"), NUMERIC_FEATURES),
             (
@@ -175,7 +185,7 @@ def build_ml_model(df: pd.DataFrame) -> dict[str, object]:
                 Pipeline(
                     steps=[
                         ("imputer", SimpleImputer(strategy="most_frequent")),
-                        ("encoder", encoder),
+                        ("encoder", make_one_hot_encoder()),
                     ]
                 ),
                 CATEGORICAL_FEATURES,
@@ -183,54 +193,153 @@ def build_ml_model(df: pd.DataFrame) -> dict[str, object]:
         ]
     )
 
-    model = Pipeline(
+
+def candidate_regressors() -> dict[str, object]:
+    return {
+        "Baseline mediana": DummyRegressor(strategy="median"),
+        "Ridge regularizado": Ridge(alpha=8.0),
+        "Random Forest": RandomForestRegressor(
+            n_estimators=320,
+            min_samples_leaf=3,
+            random_state=42,
+            n_jobs=-1,
+        ),
+        "Gradient Boosting": GradientBoostingRegressor(
+            n_estimators=220,
+            learning_rate=0.045,
+            max_depth=3,
+            subsample=0.9,
+            random_state=42,
+        ),
+    }
+
+
+def build_regression_pipeline(regressor: object) -> Pipeline:
+    return Pipeline(
         steps=[
-            ("preprocess", preprocessor),
-            (
-                "regressor",
-                RandomForestRegressor(
-                    n_estimators=240,
-                    min_samples_leaf=3,
-                    random_state=42,
-                    n_jobs=-1,
-                ),
-            ),
+            ("preprocess", build_preprocessor()),
+            ("regressor", regressor),
         ]
     )
 
-    x_train, x_test, y_train, y_test = train_test_split(
+
+def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[str, object]:
+    metadata_columns = ["title"]
+    model_columns = NUMERIC_FEATURES + CATEGORICAL_FEATURES + ["price_gbp"]
+    model_df = df[metadata_columns + model_columns].dropna()
+    if len(model_df) < 40:
+        return {"available": False, "reason": "Amostra insuficiente para treino e teste."}
+
+    x = model_df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
+    y = model_df["price_gbp"]
+    metadata = model_df[metadata_columns]
+
+    x_train, x_test, y_train, y_test, metadata_train, metadata_test = train_test_split(
         x,
         y,
+        metadata,
         test_size=0.25,
         random_state=42,
     )
-    model.fit(x_train, y_train)
-    predictions = model.predict(x_test)
 
-    fitted_preprocessor = model.named_steps["preprocess"]
-    categorical_pipeline = fitted_preprocessor.named_transformers_["categorical"]
-    categorical_names = categorical_pipeline.named_steps["encoder"].get_feature_names_out(
-        CATEGORICAL_FEATURES
+    cv_folds = min(5, max(2, len(x_train) // 20))
+    scoring = {
+        "mae": "neg_mean_absolute_error",
+        "rmse": "neg_root_mean_squared_error",
+        "r2": "r2",
+    }
+
+    metrics: list[dict[str, float | int | str | bool]] = []
+    fitted_models: dict[str, Pipeline] = {}
+    for name, regressor in candidate_regressors().items():
+        pipeline = build_regression_pipeline(regressor)
+        cv_result = cross_validate(
+            pipeline,
+            x_train,
+            y_train,
+            cv=cv_folds,
+            scoring=scoring,
+            error_score=np.nan,
+        )
+        pipeline.fit(x_train, y_train)
+        predictions = pipeline.predict(x_test)
+        fitted_models[name] = pipeline
+
+        metrics.append(
+            {
+                "modelo": name,
+                "mae_cv": float(-np.nanmean(cv_result["test_mae"])),
+                "rmse_cv": float(-np.nanmean(cv_result["test_rmse"])),
+                "r2_cv": float(np.nanmean(cv_result["test_r2"])),
+                "mae_teste": float(mean_absolute_error(y_test, predictions)),
+                "rmse_teste": float(root_mean_squared_error(y_test, predictions)),
+                "r2_teste": float(r2_score(y_test, predictions)),
+                "folds_cv": int(cv_folds),
+            }
+        )
+
+    metrics_df = pd.DataFrame(metrics).sort_values(["mae_cv", "mae_teste"]).reset_index(drop=True)
+    selected_name = str(metrics_df.iloc[0]["modelo"])
+    metrics_df["selecionado"] = metrics_df["modelo"].eq(selected_name)
+
+    selected_model = fitted_models[selected_name]
+    selected_predictions = selected_model.predict(x_test)
+    residuals = metadata_test.reset_index(drop=True).assign(
+        category=x_test["category"].reset_index(drop=True),
+        preco_real=y_test.reset_index(drop=True),
+        preco_previsto=selected_predictions,
     )
-    feature_names = np.concatenate([np.array(NUMERIC_FEATURES), categorical_names])
-    importances = model.named_steps["regressor"].feature_importances_
+    residuals["erro"] = residuals["preco_previsto"] - residuals["preco_real"]
+    residuals["erro_absoluto"] = residuals["erro"].abs()
+    residuals = residuals.sort_values("erro_absoluto", ascending=False).reset_index(drop=True)
 
+    permutation = permutation_importance(
+        selected_model,
+        x_test,
+        y_test,
+        scoring="neg_mean_absolute_error",
+        n_repeats=20,
+        random_state=42,
+        n_jobs=1,
+    )
     importance_df = (
-        pd.DataFrame({"feature": feature_names, "importance": importances})
+        pd.DataFrame(
+            {
+                "feature": [FEATURE_LABELS.get(column, column) for column in x_test.columns],
+                "importance": permutation.importances_mean.clip(min=0),
+            }
+        )
         .sort_values("importance", ascending=False)
-        .head(12)
+        .head(10)
         .reset_index(drop=True)
     )
 
-    return {
+    baseline_mae = float(
+        metrics_df.loc[metrics_df["modelo"].eq("Baseline mediana"), "mae_teste"].iloc[0]
+    )
+    selected_mae = float(metrics_df.loc[metrics_df["selecionado"], "mae_teste"].iloc[0])
+    improvement = ((baseline_mae - selected_mae) / baseline_mae) * 100 if baseline_mae else 0.0
+
+    result: dict[str, object] = {
         "available": True,
-        "algorithm": "RandomForestRegressor",
+        "algorithm": selected_name,
         "train_rows": int(len(x_train)),
         "test_rows": int(len(x_test)),
-        "mae": float(mean_absolute_error(y_test, predictions)),
-        "r2": float(r2_score(y_test, predictions)),
+        "cv_folds": int(cv_folds),
+        "mae": selected_mae,
+        "rmse": float(metrics_df.loc[metrics_df["selecionado"], "rmse_teste"].iloc[0]),
+        "r2": float(metrics_df.loc[metrics_df["selecionado"], "r2_teste"].iloc[0]),
+        "baseline_mae": baseline_mae,
+        "improvement_vs_baseline_pct": float(improvement),
+        "model_metrics": metrics_df,
         "feature_importance": importance_df,
+        "residuals": residuals,
     }
+    if include_estimator:
+        final_model = build_regression_pipeline(candidate_regressors()[selected_name])
+        final_model.fit(x, y)
+        result["estimator"] = final_model
+    return result
 
 
 def build_analysis_report(df: pd.DataFrame) -> dict[str, object]:
