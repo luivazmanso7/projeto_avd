@@ -1,0 +1,670 @@
+{
+  "kpis": {
+    "livros": 400,
+    "categorias": 41,
+    "preco_medio": 34.9598,
+    "preco_mediano": 36.805,
+    "avaliacao_media": 2.9225,
+    "outliers": 1
+  },
+  "pearson": [
+    {
+      "variavel": "title_word_count",
+      "correlacao_pearson": 0.0517163984258023,
+      "p_valor": 0.3021744333216544,
+      "n": 400,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "title_tone_score",
+      "correlacao_pearson": 0.04323345579673799,
+      "p_valor": 0.3884859218348671,
+      "n": 400,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "title_char_count",
+      "correlacao_pearson": 0.038170654045470924,
+      "p_valor": 0.4464770307209173,
+      "n": 400,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "description_word_count",
+      "correlacao_pearson": -0.034781813719955076,
+      "p_valor": 0.48788969075272337,
+      "n": 400,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "stock_quantity",
+      "correlacao_pearson": -0.009902624962128008,
+      "p_valor": 0.8434851592795941,
+      "n": 400,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "rating",
+      "correlacao_pearson": 0.006753824817222108,
+      "p_valor": 0.892884408874596,
+      "n": 400,
+      "forca": "muito fraca"
+    }
+  ],
+  "anova_rating": {
+    "group_col": "rating_label",
+    "value_col": "price_gbp",
+    "f_statistic": 0.4859796655111285,
+    "p_value": 0.7460485774391639,
+    "groups": 5,
+    "interpretation": "Sem evidencia estatistica de diferenca entre grupos"
+  },
+  "anova_category": {
+    "group_col": "category",
+    "value_col": "price_gbp",
+    "f_statistic": 1.01463200603054,
+    "p_value": 0.44957185351557044,
+    "groups": 36,
+    "interpretation": "Sem evidencia estatistica de diferenca entre grupos"
+  },
+  "quartiles": [
+    {
+      "price_quartile": "Q1 - Mais barato",
+      "livros": 100,
+      "preco_minimo": 10.16,
+      "preco_mediano": 15.855,
+      "preco_maximo": 21.87,
+      "avaliacao_media": 2.99,
+      "estoque_mediano": 15.0
+    },
+    {
+      "price_quartile": "Q2 - Abaixo da mediana",
+      "livros": 100,
+      "preco_minimo": 21.95,
+      "preco_mediano": 28.79,
+      "preco_maximo": 36.72,
+      "avaliacao_media": 2.91,
+      "estoque_mediano": 15.0
+    },
+    {
+      "price_quartile": "Q3 - Acima da mediana",
+      "livros": 100,
+      "preco_minimo": 36.89,
+      "preco_mediano": 41.58,
+      "preco_maximo": 47.67,
+      "avaliacao_media": 2.74,
+      "estoque_mediano": 15.0
+    },
+    {
+      "price_quartile": "Q4 - Mais caro",
+      "livros": 100,
+      "preco_minimo": 47.72,
+      "preco_mediano": 53.9,
+      "preco_maximo": 59.9,
+      "avaliacao_media": 3.05,
+      "estoque_mediano": 14.0
+    }
+  ],
+  "categories": [
+    {
+      "category": "Default",
+      "livros": 62,
+      "preco_medio": 36.00967741935484,
+      "preco_mediano": 38.61,
+      "preco_minimo": 10.23,
+      "preco_maximo": 58.32,
+      "avaliacao_media": 2.9193548387096775,
+      "estoque_total": 925,
+      "valor_estoque": 32835.6,
+      "outliers": 0
+    },
+    {
+      "category": "Nonfiction",
+      "livros": 45,
+      "preco_medio": 32.55844444444445,
+      "preco_mediano": 30.81,
+      "preco_minimo": 11.68,
+      "preco_maximo": 59.9,
+      "avaliacao_media": 3.066666666666667,
+      "estoque_total": 663,
+      "valor_estoque": 21578.34,
+      "outliers": 0
+    },
+    {
+      "category": "Sequential Art",
+      "livros": 38,
+      "preco_medio": 34.195263157894736,
+      "preco_mediano": 36.61,
+      "preco_minimo": 10.16,
+      "preco_maximo": 57.62,
+      "avaliacao_media": 2.8947368421052633,
+      "estoque_total": 581,
+      "valor_estoque": 19868.01,
+      "outliers": 0
+    },
+    {
+      "category": "Fiction",
+      "livros": 28,
+      "preco_medio": 36.55607142857143,
+      "preco_mediano": 40.64,
+      "preco_minimo": 10.6,
+      "preco_maximo": 59.45,
+      "avaliacao_media": 3.3214285714285716,
+      "estoque_total": 404,
+      "valor_estoque": 14800.78,
+      "outliers": 0
+    },
+    {
+      "category": "Add a comment",
+      "livros": 23,
+      "preco_medio": 33.89565217391304,
+      "preco_mediano": 34.2,
+      "preco_minimo": 11.88,
+      "preco_maximo": 59.15,
+      "avaliacao_media": 2.9130434782608696,
+      "estoque_total": 325,
+      "valor_estoque": 11011.4,
+      "outliers": 0
+    },
+    {
+      "category": "Young Adult",
+      "livros": 21,
+      "preco_medio": 36.30809523809524,
+      "preco_mediano": 38.28,
+      "preco_minimo": 14.36,
+      "preco_maximo": 58.14,
+      "avaliacao_media": 3.0952380952380953,
+      "estoque_total": 310,
+      "valor_estoque": 11035.27,
+      "outliers": 0
+    },
+    {
+      "category": "Fantasy",
+      "livros": 18,
+      "preco_medio": 38.71333333333334,
+      "preco_mediano": 40.855,
+      "preco_minimo": 13.34,
+      "preco_maximo": 56.4,
+      "avaliacao_media": 2.8333333333333335,
+      "estoque_total": 266,
+      "valor_estoque": 10249.34,
+      "outliers": 0
+    },
+    {
+      "category": "Mystery",
+      "livros": 17,
+      "preco_medio": 32.78352941176471,
+      "preco_mediano": 27.26,
+      "preco_minimo": 10.69,
+      "preco_maximo": 59.48,
+      "avaliacao_media": 2.588235294117647,
+      "estoque_total": 237,
+      "valor_estoque": 7859.87,
+      "outliers": 0
+    },
+    {
+      "category": "Food and Drink",
+      "livros": 16,
+      "preco_medio": 33.133125,
+      "preco_mediano": 35.355000000000004,
+      "preco_minimo": 11.53,
+      "preco_maximo": 56.41,
+      "avaliacao_media": 2.5,
+      "estoque_total": 236,
+      "valor_estoque": 7891.32,
+      "outliers": 0
+    },
+    {
+      "category": "Romance",
+      "livros": 14,
+      "preco_medio": 33.39785714285714,
+      "preco_mediano": 33.29,
+      "preco_minimo": 15.97,
+      "preco_maximo": 55.99,
+      "avaliacao_media": 2.857142857142857,
+      "estoque_total": 208,
+      "valor_estoque": 6734.13,
+      "outliers": 0
+    },
+    {
+      "category": "Poetry",
+      "livros": 11,
+      "preco_medio": 36.96181818181818,
+      "preco_mediano": 41.05,
+      "preco_minimo": 14.19,
+      "preco_maximo": 57.31,
+      "avaliacao_media": 2.909090909090909,
+      "estoque_total": 187,
+      "valor_estoque": 6946.33,
+      "outliers": 0
+    },
+    {
+      "category": "Childrens",
+      "livros": 10,
+      "preco_medio": 35.005,
+      "preco_mediano": 30.23,
+      "preco_minimo": 12.96,
+      "preco_maximo": 58.08,
+      "avaliacao_media": 2.7,
+      "estoque_total": 153,
+      "valor_estoque": 5505.27,
+      "outliers": 0
+    },
+    {
+      "category": "Historical Fiction",
+      "livros": 9,
+      "preco_medio": 37.73777777777778,
+      "preco_mediano": 36.95,
+      "preco_minimo": 20.55,
+      "preco_maximo": 55.53,
+      "avaliacao_media": 3.111111111111111,
+      "estoque_total": 134,
+      "valor_estoque": 5195.92,
+      "outliers": 0
+    },
+    {
+      "category": "History",
+      "livros": 8,
+      "preco_medio": 32.06,
+      "preco_mediano": 25.11,
+      "preco_minimo": 14.58,
+      "preco_maximo": 59.64,
+      "avaliacao_media": 2.375,
+      "estoque_total": 125,
+      "valor_estoque": 4138.8,
+      "outliers": 0
+    },
+    {
+      "category": "Horror",
+      "livros": 7,
+      "preco_medio": 31.47142857142857,
+      "preco_mediano": 36.97,
+      "preco_minimo": 10.56,
+      "preco_maximo": 48.64,
+      "avaliacao_media": 2.142857142857143,
+      "estoque_total": 97,
+      "valor_estoque": 3012.84,
+      "outliers": 0
+    },
+    {
+      "category": "Business",
+      "livros": 7,
+      "preco_medio": 28.640000000000004,
+      "preco_mediano": 27.55,
+      "preco_minimo": 12.61,
+      "preco_maximo": 43.14,
+      "avaliacao_media": 3.2857142857142856,
+      "estoque_total": 101,
+      "valor_estoque": 2888.29,
+      "outliers": 0
+    },
+    {
+      "category": "Science Fiction",
+      "livros": 6,
+      "preco_medio": 33.678333333333335,
+      "preco_mediano": 36.63,
+      "preco_minimo": 10.65,
+      "preco_maximo": 48.74,
+      "avaliacao_media": 2.3333333333333335,
+      "estoque_total": 91,
+      "valor_estoque": 3022.12,
+      "outliers": 0
+    },
+    {
+      "category": "Thriller",
+      "livros": 6,
+      "preco_medio": 30.925,
+      "preco_mediano": 31.53,
+      "preco_minimo": 12.84,
+      "preco_maximo": 52.22,
+      "avaliacao_media": 3.0,
+      "estoque_total": 97,
+      "valor_estoque": 2966.06,
+      "outliers": 0
+    },
+    {
+      "category": "Science",
+      "livros": 4,
+      "preco_medio": 45.6525,
+      "preco_mediano": 43.85,
+      "preco_minimo": 37.55,
+      "preco_maximo": 57.36,
+      "avaliacao_media": 3.5,
+      "estoque_total": 58,
+      "valor_estoque": 2682.08,
+      "outliers": 1
+    },
+    {
+      "category": "Music",
+      "livros": 4,
+      "preco_medio": 36.905,
+      "preco_mediano": 36.17,
+      "preco_minimo": 18.03,
+      "preco_maximo": 57.25,
+      "avaliacao_media": 2.75,
+      "estoque_total": 71,
+      "valor_estoque": 2714.63,
+      "outliers": 0
+    },
+    {
+      "category": "Humor",
+      "livros": 4,
+      "preco_medio": 24.1575,
+      "preco_mediano": 20.365000000000002,
+      "preco_minimo": 11.83,
+      "preco_maximo": 44.07,
+      "avaliacao_media": 3.75,
+      "estoque_total": 56,
+      "valor_estoque": 1352.8200000000002,
+      "outliers": 0
+    },
+    {
+      "category": "Politics",
+      "livros": 3,
+      "preco_medio": 53.61333333333334,
+      "preco_mediano": 52.65,
+      "preco_minimo": 51.33,
+      "preco_maximo": 56.86,
+      "avaliacao_media": 2.3333333333333335,
+      "estoque_total": 45,
+      "valor_estoque": 2394.69,
+      "outliers": 0
+    },
+    {
+      "category": "Travel",
+      "livros": 3,
+      "preco_medio": 47.82333333333333,
+      "preco_mediano": 48.87,
+      "preco_minimo": 45.17,
+      "preco_maximo": 49.43,
+      "avaliacao_media": 3.0,
+      "estoque_total": 48,
+      "valor_estoque": 2283.86,
+      "outliers": 0
+    },
+    {
+      "category": "Self Help",
+      "livros": 3,
+      "preco_medio": 48.17666666666667,
+      "preco_mediano": 46.35,
+      "preco_minimo": 46.03,
+      "preco_maximo": 52.15,
+      "avaliacao_media": 1.6666666666666667,
+      "estoque_total": 46,
+      "valor_estoque": 2208.1800000000003,
+      "outliers": 0
+    },
+    {
+      "category": "New Adult",
+      "livros": 3,
+      "preco_medio": 48.07,
+      "preco_mediano": 45.07,
+      "preco_minimo": 43.29,
+      "preco_maximo": 55.85,
+      "avaliacao_media": 2.0,
+      "estoque_total": 46,
+      "valor_estoque": 2208.2200000000003,
+      "outliers": 0
+    },
+    {
+      "category": "Spirituality",
+      "livros": 3,
+      "preco_medio": 29.23333333333333,
+      "preco_mediano": 32.24,
+      "preco_minimo": 17.66,
+      "preco_maximo": 37.8,
+      "avaliacao_media": 4.0,
+      "estoque_total": 49,
+      "valor_estoque": 1400.72,
+      "outliers": 0
+    },
+    {
+      "category": "Religion",
+      "livros": 3,
+      "preco_medio": 29.956666666666667,
+      "preco_mediano": 30.03,
+      "preco_minimo": 21.87,
+      "preco_maximo": 37.97,
+      "avaliacao_media": 3.6666666666666665,
+      "estoque_total": 45,
+      "valor_estoque": 1355.99,
+      "outliers": 0
+    },
+    {
+      "category": "Philosophy",
+      "livros": 3,
+      "preco_medio": 30.49666666666667,
+      "preco_mediano": 17.44,
+      "preco_minimo": 15.94,
+      "preco_maximo": 58.11,
+      "avaliacao_media": 4.333333333333333,
+      "estoque_total": 49,
+      "valor_estoque": 1478.28,
+      "outliers": 0
+    },
+    {
+      "category": "Health",
+      "livros": 2,
+      "preco_medio": 51.56,
+      "preco_mediano": 51.56,
+      "preco_minimo": 49.05,
+      "preco_maximo": 54.07,
+      "avaliacao_media": 2.5,
+      "estoque_total": 30,
+      "valor_estoque": 1541.78,
+      "outliers": 0
+    },
+    {
+      "category": "Christian",
+      "livros": 2,
+      "preco_medio": 50.86,
+      "preco_mediano": 50.86,
+      "preco_minimo": 47.72,
+      "preco_maximo": 54.0,
+      "avaliacao_media": 3.5,
+      "estoque_total": 30,
+      "valor_estoque": 1532.08,
+      "outliers": 0
+    },
+    {
+      "category": "Art",
+      "livros": 2,
+      "preco_medio": 46.614999999999995,
+      "preco_mediano": 46.614999999999995,
+      "preco_minimo": 44.18,
+      "preco_maximo": 49.05,
+      "avaliacao_media": 3.5,
+      "estoque_total": 32,
+      "valor_estoque": 1481.94,
+      "outliers": 0
+    },
+    {
+      "category": "Contemporary",
+      "livros": 2,
+      "preco_medio": 42.28,
+      "preco_mediano": 42.28,
+      "preco_minimo": 31.77,
+      "preco_maximo": 52.79,
+      "avaliacao_media": 3.0,
+      "estoque_total": 30,
+      "valor_estoque": 1247.3799999999999,
+      "outliers": 0
+    },
+    {
+      "category": "Womens Fiction",
+      "livros": 2,
+      "preco_medio": 35.61,
+      "preco_mediano": 35.61,
+      "preco_minimo": 13.86,
+      "preco_maximo": 57.36,
+      "avaliacao_media": 3.5,
+      "estoque_total": 27,
+      "valor_estoque": 1026.72,
+      "outliers": 0
+    },
+    {
+      "category": "Christian Fiction",
+      "livros": 2,
+      "preco_medio": 34.965,
+      "preco_mediano": 34.965,
+      "preco_minimo": 20.47,
+      "preco_maximo": 49.46,
+      "avaliacao_media": 4.5,
+      "estoque_total": 30,
+      "valor_estoque": 1048.9499999999998,
+      "outliers": 0
+    },
+    {
+      "category": "Psychology",
+      "livros": 2,
+      "preco_medio": 24.915,
+      "preco_mediano": 24.915,
+      "preco_minimo": 10.4,
+      "preco_maximo": 39.43,
+      "avaliacao_media": 1.0,
+      "estoque_total": 26,
+      "valor_estoque": 618.76,
+      "outliers": 0
+    },
+    {
+      "category": "Biography",
+      "livros": 2,
+      "preco_medio": 19.0,
+      "preco_mediano": 19.0,
+      "preco_minimo": 16.85,
+      "preco_maximo": 21.15,
+      "avaliacao_media": 2.0,
+      "estoque_total": 26,
+      "valor_estoque": 485.40000000000003,
+      "outliers": 0
+    },
+    {
+      "category": "Cultural",
+      "livros": 1,
+      "preco_medio": 36.58,
+      "preco_mediano": 36.58,
+      "preco_minimo": 36.58,
+      "preco_maximo": 36.58,
+      "avaliacao_media": 1.0,
+      "estoque_total": 15,
+      "valor_estoque": 548.6999999999999,
+      "outliers": 0
+    },
+    {
+      "category": "Historical",
+      "livros": 1,
+      "preco_medio": 29.87,
+      "preco_mediano": 29.87,
+      "preco_minimo": 29.87,
+      "preco_maximo": 29.87,
+      "avaliacao_media": 5.0,
+      "estoque_total": 14,
+      "valor_estoque": 418.18,
+      "outliers": 0
+    },
+    {
+      "category": "Erotica",
+      "livros": 1,
+      "preco_medio": 19.19,
+      "preco_mediano": 19.19,
+      "preco_minimo": 19.19,
+      "preco_maximo": 19.19,
+      "avaliacao_media": 5.0,
+      "estoque_total": 15,
+      "valor_estoque": 287.85,
+      "outliers": 0
+    },
+    {
+      "category": "Crime",
+      "livros": 1,
+      "preco_medio": 10.97,
+      "preco_mediano": 10.97,
+      "preco_minimo": 10.97,
+      "preco_maximo": 10.97,
+      "avaliacao_media": 1.0,
+      "estoque_total": 15,
+      "valor_estoque": 164.55,
+      "outliers": 0
+    },
+    {
+      "category": "Autobiography",
+      "livros": 1,
+      "preco_medio": 10.93,
+      "preco_mediano": 10.93,
+      "preco_minimo": 10.93,
+      "preco_maximo": 10.93,
+      "avaliacao_media": 2.0,
+      "estoque_total": 15,
+      "valor_estoque": 163.95,
+      "outliers": 0
+    }
+  ],
+  "outliers": [
+    {
+      "title": "Immunity: How Elie Metchnikoff Changed the Course of Modern Medicine",
+      "category": "Science",
+      "price_gbp": 57.36,
+      "rating": 5,
+      "stock_quantity": 16,
+      "price_vs_category_median_pct": 30.809578107183565
+    }
+  ],
+  "ml": {
+    "available": true,
+    "algorithm": "RandomForestRegressor",
+    "train_rows": 300,
+    "test_rows": 100,
+    "mae": 13.12457090354784,
+    "r2": -0.1346966603124995,
+    "feature_importance": [
+      {
+        "feature": "description_word_count",
+        "importance": 0.33446234626336735
+      },
+      {
+        "feature": "title_char_count",
+        "importance": 0.2054197601775676
+      },
+      {
+        "feature": "title_word_count",
+        "importance": 0.11765027934580308
+      },
+      {
+        "feature": "rating",
+        "importance": 0.0996727230284278
+      },
+      {
+        "feature": "stock_quantity",
+        "importance": 0.09392121554291219
+      },
+      {
+        "feature": "title_tone_score",
+        "importance": 0.038972084775493486
+      },
+      {
+        "feature": "category_Nonfiction",
+        "importance": 0.02441999057581867
+      },
+      {
+        "feature": "category_Mystery",
+        "importance": 0.01904880894141704
+      },
+      {
+        "feature": "category_Default",
+        "importance": 0.012980341689415916
+      },
+      {
+        "feature": "category_Fiction",
+        "importance": 0.010208212861295623
+      },
+      {
+        "feature": "category_Sequential Art",
+        "importance": 0.008133145745639678
+      },
+      {
+        "feature": "category_Food and Drink",
+        "importance": 0.005758960982435312
+      }
+    ]
+  }
+}
