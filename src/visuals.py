@@ -23,6 +23,18 @@ RATING_COLORS = {
     "5 estrelas": "#1B9E77",
 }
 
+FEATURE_LABELS = {
+    "rating": "Avaliação",
+    "stock_quantity": "Estoque declarado",
+    "title_word_count": "Palavras no título",
+    "title_char_count": "Caracteres no título",
+    "description_word_count": "Palavras na descrição",
+    "title_tone_score": "Tom do título",
+    "num_reviews": "Reviews",
+    "category": "Categoria",
+    "availability_status": "Disponibilidade",
+}
+
 
 def apply_layout(fig: go.Figure, title: str | None = None, height: int = 460) -> go.Figure:
     fig.update_layout(
@@ -88,7 +100,7 @@ def price_histogram(df: pd.DataFrame) -> go.Figure:
         x="price_gbp",
         nbins=24,
         color_discrete_sequence=[ACCENT],
-        labels={"price_gbp": "Preco (£)", "count": "Livros"},
+        labels={"price_gbp": "Preço (£)", "count": "Livros"},
     )
     median = df["price_gbp"].median()
     fig.add_vline(
@@ -101,7 +113,7 @@ def price_histogram(df: pd.DataFrame) -> go.Figure:
         annotation_font_size=14,
     )
     fig.update_traces(marker_line_width=0, opacity=0.9)
-    return apply_layout(fig, "Distribuicao de precos")
+    return apply_layout(fig, "Distribuição de preços")
 
 
 def category_median_bar(df: pd.DataFrame, top_n: int = 12) -> go.Figure:
@@ -126,15 +138,15 @@ def category_median_bar(df: pd.DataFrame, top_n: int = 12) -> go.Figure:
             cliponaxis=False,
             customdata=summary[["livros"]],
             hovertemplate=(
-                "%{y}<br>Preco mediano: £%{x:.2f}<br>"
+                "%{y}<br>Preço mediano: £%{x:.2f}<br>"
                 "Livros: %{customdata[0]}<extra></extra>"
             ),
         )
     )
-    fig.update_xaxes(title="Preco mediano (£)")
+    fig.update_xaxes(title="Preço mediano (£)")
     fig.update_yaxes(title="")
     fig.update_layout(showlegend=False)
-    fig = apply_layout(fig, "Categorias com maior presenca no catalogo", height=500)
+    fig = apply_layout(fig, "Categorias com maior presença no catálogo", height=500)
     fig.update_layout(margin={"l": 150, "r": 58, "t": 78, "b": 70})
     return fig
 
@@ -147,7 +159,7 @@ def rating_price_box(df: pd.DataFrame) -> go.Figure:
         color="rating_label",
         color_discrete_map=RATING_COLORS,
         points="outliers",
-        labels={"rating_label": "Avaliacao", "price_gbp": "Preco (£)"},
+        labels={"rating_label": "Avaliação", "price_gbp": "Preço (£)"},
         category_orders={
             "rating_label": [
                 "1 estrela",
@@ -160,7 +172,7 @@ def rating_price_box(df: pd.DataFrame) -> go.Figure:
     )
     fig.update_traces(boxmean=True, line_width=2.4, marker={"size": 5, "opacity": 0.75})
     fig.update_layout(showlegend=False)
-    return apply_layout(fig, "Variacao de preco por avaliacao")
+    return apply_layout(fig, "Variação de preço por avaliação")
 
 
 def stock_price_scatter(df: pd.DataFrame) -> go.Figure:
@@ -187,20 +199,20 @@ def stock_price_scatter(df: pd.DataFrame) -> go.Figure:
         },
         labels={
             "stock_quantity": "Estoque declarado",
-            "price_gbp": "Preco (£)",
-            "rating_label": "Avaliacao",
+            "price_gbp": "Preço (£)",
+            "rating_label": "Avaliação",
         },
     )
     fig.update_traces(marker={"opacity": 0.62, "line": {"width": 0.8, "color": "#FFFFFF"}})
     fig.update_xaxes(title="Estoque declarado", tickmode="linear", dtick=2)
-    return apply_layout(fig, "Preco, estoque e avaliacao")
+    return apply_layout(fig, "Preço, estoque e avaliação")
 
 
 def correlation_bar(correlations: pd.DataFrame) -> go.Figure:
     if correlations.empty:
         fig = go.Figure()
         fig.add_annotation(
-            text="Amostra insuficiente para correlacao",
+            text="Amostra insuficiente para correlação",
             x=0.5,
             y=0.5,
             showarrow=False,
@@ -208,17 +220,24 @@ def correlation_bar(correlations: pd.DataFrame) -> go.Figure:
         )
         fig.update_xaxes(visible=False)
         fig.update_yaxes(visible=False)
-        return apply_layout(fig, "Correlacao de Pearson com preco")
+        return apply_layout(fig, "Correlação de Pearson com preço")
 
-    plot_df = correlations.copy().sort_values("correlacao_pearson")
+    plot_df = correlations.copy()
+    plot_df["variavel_label"] = plot_df["variavel"].map(FEATURE_LABELS).fillna(plot_df["variavel"])
+    plot_df["correlacao_abs"] = plot_df["correlacao_pearson"].abs()
+    plot_df = plot_df.sort_values("correlacao_abs")
     colors = [POSITIVE if value >= 0 else NEGATIVE for value in plot_df["correlacao_pearson"]]
+    axis_limit = max(0.05, float(plot_df["correlacao_abs"].max()) * 1.25)
     fig = go.Figure(
         go.Bar(
             x=plot_df["correlacao_pearson"],
-            y=plot_df["variavel"],
+            y=plot_df["variavel_label"],
             orientation="h",
             marker_color=colors,
             customdata=plot_df[["p_valor", "forca"]],
+            text=plot_df["correlacao_pearson"].map(lambda value: f"{value:+.3f}"),
+            textposition="outside",
+            cliponaxis=False,
             hovertemplate=(
                 "Correlação: %{x:.3f}<br>"
                 "p-valor: %{customdata[0]:.4f}<br>"
@@ -227,32 +246,43 @@ def correlation_bar(correlations: pd.DataFrame) -> go.Figure:
         )
     )
     fig.add_vline(x=0, line_color=INK, line_width=1)
-    fig.update_xaxes(range=[-1, 1])
-    fig = apply_layout(fig, "Correlacao de Pearson com preco")
-    fig.update_layout(margin={"l": 175, "r": 34, "t": 78, "b": 72})
+    fig.update_xaxes(
+        title="Correlação de Pearson (r)",
+        range=[-axis_limit, axis_limit],
+        tickformat=".2f",
+    )
+    fig.update_yaxes(title="")
+    fig.update_layout(showlegend=False)
+    fig = apply_layout(fig, "Correlação de Pearson com preço")
+    fig.update_layout(margin={"l": 185, "r": 72, "t": 78, "b": 72})
     return fig
 
 
 def quartile_bar(quartiles: pd.DataFrame) -> go.Figure:
-    fig = px.bar(
-        quartiles,
-        x="price_quartile",
-        y="livros",
-        color="preco_mediano",
-        color_continuous_scale=["#2A9D8F", "#E9C46A", "#E76F51"],
-        text="livros",
-        labels={
-            "price_quartile": "",
-            "livros": "Livros",
-            "preco_mediano": "Preco mediano (£)",
-        },
+    plot_df = quartiles.copy()
+    colors = ["#2A9D8F", "#A8B86F", "#E9A857", "#E76F51"][: len(plot_df)]
+    fig = go.Figure(
+        go.Bar(
+            x=plot_df["price_quartile"],
+            y=plot_df["preco_mediano"],
+            marker_color=colors,
+            text=plot_df["preco_mediano"].map(lambda value: f"£{value:.2f}"),
+            textposition="outside",
+            cliponaxis=False,
+            customdata=plot_df[["preco_minimo", "preco_maximo", "livros"]],
+            hovertemplate=(
+                "%{x}<br>"
+                "Mediana: £%{y:.2f}<br>"
+                "Faixa: £%{customdata[0]:.2f} a £%{customdata[1]:.2f}<br>"
+                "Livros: %{customdata[2]}<extra></extra>"
+            ),
+        )
     )
-    fig.update_traces(textposition="outside", cliponaxis=False)
-    fig.update_coloraxes(showscale=False)
     fig.update_layout(showlegend=False)
-    fig = apply_layout(fig, "Distribuicao por quartis")
-    fig.update_layout(margin={"l": 72, "r": 34, "t": 78, "b": 118})
-    fig.update_xaxes(tickangle=-18)
+    fig.update_yaxes(title="Preço mediano (£)", tickprefix="£")
+    fig.update_xaxes(title="", tickangle=-18)
+    fig = apply_layout(fig, "Faixas de preço por quartil")
+    fig.update_layout(margin={"l": 86, "r": 44, "t": 78, "b": 118})
     return fig
 
 
@@ -268,7 +298,7 @@ def feature_importance_bar(importance: pd.DataFrame) -> go.Figure:
         labels={"importance": "Impacto no MAE", "feature": ""},
     )
     fig.update_coloraxes(showscale=False)
-    fig = apply_layout(fig, "Impacto das variaveis no erro")
+    fig = apply_layout(fig, "Impacto das variáveis no erro")
     fig.update_layout(margin={"l": 230, "r": 34, "t": 78, "b": 72})
     return fig
 
@@ -291,10 +321,10 @@ def model_mae_bar(metrics: pd.DataFrame) -> go.Figure:
             ),
         )
     )
-    fig.update_xaxes(title="Erro absoluto medio no teste (£)")
+    fig.update_xaxes(title="Erro absoluto médio no teste (£)")
     fig.update_yaxes(title="")
     fig.update_layout(showlegend=False)
-    fig = apply_layout(fig, "Comparacao de modelos", height=380)
+    fig = apply_layout(fig, "Comparação de modelos de ML", height=380)
     fig.update_layout(margin={"l": 170, "r": 34, "t": 78, "b": 72})
     return fig
 
@@ -303,7 +333,7 @@ def predicted_vs_actual_scatter(residuals: pd.DataFrame) -> go.Figure:
     if residuals.empty:
         fig = go.Figure()
         fig.add_annotation(
-            text="Sem previsoes de teste disponiveis",
+            text="Sem previsões de teste disponíveis",
             x=0.5,
             y=0.5,
             showarrow=False,
@@ -311,7 +341,7 @@ def predicted_vs_actual_scatter(residuals: pd.DataFrame) -> go.Figure:
         )
         fig.update_xaxes(visible=False)
         fig.update_yaxes(visible=False)
-        return apply_layout(fig, "Preco real vs previsto")
+        return apply_layout(fig, "Preço real vs previsto")
 
     limit_min = min(residuals["preco_real"].min(), residuals["preco_previsto"].min())
     limit_max = max(residuals["preco_real"].max(), residuals["preco_previsto"].max())
@@ -330,8 +360,8 @@ def predicted_vs_actual_scatter(residuals: pd.DataFrame) -> go.Figure:
             "erro_absoluto": ":.2f",
         },
         labels={
-            "preco_real": "Preco real (£)",
-            "preco_previsto": "Preco previsto (£)",
+            "preco_real": "Preço real (£)",
+            "preco_previsto": "Preço previsto (£)",
             "erro_absoluto": "Erro absoluto",
         },
     )
@@ -346,6 +376,6 @@ def predicted_vs_actual_scatter(residuals: pd.DataFrame) -> go.Figure:
         )
     )
     fig.update_coloraxes(showscale=False)
-    fig = apply_layout(fig, "Preco real vs previsto")
+    fig = apply_layout(fig, "Preço real vs previsto")
     fig.update_layout(margin={"l": 82, "r": 34, "t": 78, "b": 72})
     return fig

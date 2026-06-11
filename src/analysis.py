@@ -9,15 +9,15 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 from sklearn.compose import ColumnTransformer
-from sklearn.dummy import DummyRegressor
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.impute import SimpleImputer
 from sklearn.inspection import permutation_importance
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error, r2_score, root_mean_squared_error
 from sklearn.model_selection import cross_validate, train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 from .config import ANALYSIS_REPORT_PATH, PROCESSED_BOOKS_PATH
 
@@ -33,19 +33,22 @@ NUMERIC_FEATURES = [
 ]
 
 CATEGORICAL_FEATURES = ["category", "availability_status"]
+TEXT_FEATURES = ["title", "description"]
+MODEL_FEATURES = NUMERIC_FEATURES + CATEGORICAL_FEATURES + TEXT_FEATURES
 MIN_MODEL_ROWS = 40
-BASELINE_MODEL_NAME = "Baseline mediana"
 
 FEATURE_LABELS = {
-    "rating": "Avaliacao",
+    "rating": "Avaliação",
     "stock_quantity": "Estoque declarado",
-    "title_word_count": "Palavras no titulo",
-    "title_char_count": "Caracteres no titulo",
-    "description_word_count": "Palavras na descricao",
-    "title_tone_score": "Tom do titulo",
+    "title_word_count": "Palavras no título",
+    "title_char_count": "Caracteres no título",
+    "description_word_count": "Palavras na descrição",
+    "title_tone_score": "Tom do título",
     "num_reviews": "Reviews",
     "category": "Categoria",
     "availability_status": "Disponibilidade",
+    "title": "Texto do título",
+    "description": "Texto da descrição",
 }
 
 
@@ -181,7 +184,16 @@ def make_one_hot_encoder() -> OneHotEncoder:
 def build_preprocessor() -> ColumnTransformer:
     return ColumnTransformer(
         transformers=[
-            ("numeric", SimpleImputer(strategy="median"), NUMERIC_FEATURES),
+            (
+                "numeric",
+                Pipeline(
+                    steps=[
+                        ("imputer", SimpleImputer(strategy="median")),
+                        ("scaler", StandardScaler()),
+                    ]
+                ),
+                NUMERIC_FEATURES,
+            ),
             (
                 "categorical",
                 Pipeline(
@@ -192,13 +204,33 @@ def build_preprocessor() -> ColumnTransformer:
                 ),
                 CATEGORICAL_FEATURES,
             ),
-        ]
+            (
+                "title_text",
+                TfidfVectorizer(
+                    max_features=120,
+                    min_df=2,
+                    ngram_range=(1, 2),
+                    stop_words="english",
+                ),
+                "title",
+            ),
+            (
+                "description_text",
+                TfidfVectorizer(
+                    max_features=280,
+                    min_df=2,
+                    ngram_range=(1, 2),
+                    stop_words="english",
+                ),
+                "description",
+            ),
+        ],
+        sparse_threshold=0.0,
     )
 
 
 def candidate_regressors() -> dict[str, object]:
     return {
-        BASELINE_MODEL_NAME: DummyRegressor(strategy="median"),
         "Ridge regularizado": Ridge(alpha=8.0),
         "Random Forest": RandomForestRegressor(
             n_estimators=320,
@@ -227,12 +259,12 @@ def build_regression_pipeline(regressor: object) -> Pipeline:
 
 def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[str, object]:
     metadata_columns = ["title"]
-    model_columns = NUMERIC_FEATURES + CATEGORICAL_FEATURES + ["price_gbp"]
-    model_df = df[metadata_columns + model_columns].dropna()
+    model_columns = MODEL_FEATURES + ["price_gbp"]
+    model_df = df[model_columns].dropna()
     if len(model_df) < MIN_MODEL_ROWS:
         return {"available": False, "reason": "Amostra insuficiente para treino e teste."}
 
-    x = model_df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
+    x = model_df[MODEL_FEATURES]
     y = model_df["price_gbp"]
     metadata = model_df[metadata_columns]
 
@@ -253,6 +285,7 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
 
     metrics: list[dict[str, float | int | str | bool]] = []
     fitted_models: dict[str, Pipeline] = {}
+
     for name, regressor in candidate_regressors().items():
         pipeline = build_regression_pipeline(regressor)
         cv_result = cross_validate(
@@ -282,12 +315,7 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
 
     metrics_df = pd.DataFrame(metrics).sort_values(["mae_cv", "mae_teste"]).reset_index(drop=True)
     best_metric_name = str(metrics_df.iloc[0]["modelo"])
-    simulator_candidates = metrics_df[~metrics_df["modelo"].eq(BASELINE_MODEL_NAME)]
-    selected_name = (
-        str(simulator_candidates.iloc[0]["modelo"])
-        if not simulator_candidates.empty
-        else best_metric_name
-    )
+    selected_name = best_metric_name
     metrics_df["selecionado"] = metrics_df["modelo"].eq(selected_name)
 
     selected_model = fitted_models[selected_name]
@@ -322,11 +350,7 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
         .reset_index(drop=True)
     )
 
-    baseline_mae = float(
-        metrics_df.loc[metrics_df["modelo"].eq(BASELINE_MODEL_NAME), "mae_teste"].iloc[0]
-    )
     selected_mae = float(metrics_df.loc[metrics_df["selecionado"], "mae_teste"].iloc[0])
-    improvement = ((baseline_mae - selected_mae) / baseline_mae) * 100 if baseline_mae else 0.0
 
     result: dict[str, object] = {
         "available": True,
@@ -338,8 +362,6 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
         "mae": selected_mae,
         "rmse": float(metrics_df.loc[metrics_df["selecionado"], "rmse_teste"].iloc[0]),
         "r2": float(metrics_df.loc[metrics_df["selecionado"], "r2_teste"].iloc[0]),
-        "baseline_mae": baseline_mae,
-        "improvement_vs_baseline_pct": float(improvement),
         "model_metrics": metrics_df,
         "feature_importance": importance_df,
         "residuals": residuals,

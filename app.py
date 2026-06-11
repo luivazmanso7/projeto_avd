@@ -7,6 +7,7 @@ import streamlit as st
 
 from src.analysis import (
     CATEGORICAL_FEATURES,
+    MODEL_FEATURES,
     NUMERIC_FEATURES,
     anova_by_group,
     build_ml_model,
@@ -79,8 +80,7 @@ PLOT_CONFIG = {
 }
 
 MIN_MODEL_ROWS = 40
-BASELINE_MODEL_NAME = "Baseline mediana"
-MODEL_REQUIRED_COLUMNS = ["title", "price_gbp", *NUMERIC_FEATURES, *CATEGORICAL_FEATURES]
+MODEL_REQUIRED_COLUMNS = ["price_gbp", *MODEL_FEATURES]
 
 
 def currency(value: float) -> str:
@@ -322,80 +322,235 @@ def word_count(value: str) -> int:
     return len(value.split())
 
 
+def category_price_stats(df: pd.DataFrame, category: str) -> dict[str, float | int]:
+    prices = df.loc[df["category"].eq(category), "price_gbp"].dropna()
+    if prices.empty:
+        prices = df["price_gbp"].dropna()
+
+    return {
+        "livros": int(len(prices)),
+        "min": float(prices.min()),
+        "q1": float(prices.quantile(0.25)),
+        "median": float(prices.median()),
+        "q3": float(prices.quantile(0.75)),
+        "max": float(prices.max()),
+    }
+
+
+def reference_book_for_profile(category_df: pd.DataFrame, profile: str) -> pd.Series:
+    reference_df = category_df.dropna(subset=["price_gbp"]).copy()
+    if profile == "Mais barato":
+        return reference_df.sort_values("price_gbp").iloc[0]
+    if profile == "Mais caro":
+        return reference_df.sort_values("price_gbp", ascending=False).iloc[0]
+    if profile == "Melhor avaliado":
+        return reference_df.sort_values(["rating", "price_gbp"], ascending=[False, True]).iloc[0]
+
+    median_price = reference_df["price_gbp"].median()
+    return (
+        reference_df.assign(distance_to_median=(reference_df["price_gbp"] - median_price).abs())
+        .sort_values(["distance_to_median", "rating"], ascending=[True, False])
+        .iloc[0]
+    )
+
+
+def price_position_label(predicted_price: float, stats: dict[str, float | int]) -> tuple[str, str]:
+    if predicted_price < float(stats["q1"]):
+        return "Abaixo da faixa central", "competitivo"
+    if predicted_price > float(stats["q3"]):
+        return "Acima da faixa central", "premium"
+    return "Dentro da faixa central", "alinhado"
+
+
+def nearest_books(df: pd.DataFrame, category: str, predicted_price: float, limit: int = 5) -> pd.DataFrame:
+    candidates = df.loc[df["category"].eq(category)].copy()
+    if len(candidates) < limit:
+        candidates = df.copy()
+
+    return (
+        candidates.assign(price_distance=(candidates["price_gbp"] - predicted_price).abs())
+        .sort_values(["price_distance", "rating"], ascending=[True, False])
+        .head(limit)
+    )
+
+
 def render_price_simulator(df: pd.DataFrame, model_report: dict[str, object]) -> None:
     estimator = model_report.get("estimator")
     if estimator is None:
         return
 
-    st.subheader("Simulador de preco")
+    st.subheader("Simulador de preço")
     categories = sorted(df["category"].dropna().unique())
     availability_options = sorted(df["availability_status"].dropna().unique())
-    default_availability = (
-        availability_options.index("Disponivel") if "Disponivel" in availability_options else 0
-    )
+    max_stock = max(100, int(df["stock_quantity"].max()) + 20)
+    max_reviews = max(1000, int(df["num_reviews"].max()) + 100)
 
-    left, right = st.columns(2)
-    with left:
-        category = st.selectbox("Categoria", categories, key="ml_category")
-        rating = st.slider("Avaliacao", 1, 5, int(df["rating"].median()), key="ml_rating")
-        stock_quantity = st.number_input(
-            "Estoque declarado",
-            min_value=0,
-            max_value=max(100, int(df["stock_quantity"].max()) + 20),
-            value=int(df["stock_quantity"].median()),
-            step=1,
-            key="ml_stock",
-        )
-        num_reviews = st.number_input(
-            "Reviews",
-            min_value=0,
-            max_value=1000,
-            value=int(df["num_reviews"].median()),
-            step=1,
-            key="ml_reviews",
-        )
-    with right:
-        availability_status = st.selectbox(
-            "Disponibilidade",
-            availability_options,
-            index=default_availability,
-            key="ml_availability",
-        )
-        title = st.text_input(
-            "Titulo",
-            value="Data stories for practical readers",
-            key="ml_title",
-        )
-        description = st.text_area(
-            "Descricao",
-            value="A clear and practical book for readers interested in data analysis.",
-            height=118,
-            key="ml_description",
+    category_col, profile_col = st.columns([1.25, 0.75])
+    with category_col:
+        selected_category = st.selectbox("Categoria", categories, key="ml_category")
+    with profile_col:
+        selected_profile = st.selectbox(
+            "Perfil inicial",
+            ["Mediano da categoria", "Mais barato", "Mais caro", "Melhor avaliado"],
+            key="ml_profile",
         )
 
-    features = pd.DataFrame(
-        [
-            {
-                "rating": rating,
-                "stock_quantity": stock_quantity,
-                "title_word_count": word_count(title),
-                "title_char_count": len(title),
-                "description_word_count": word_count(description),
-                "title_tone_score": title_tone_score(title),
-                "num_reviews": num_reviews,
-                "category": category,
-                "availability_status": availability_status,
-            }
-        ]
-    )
-    predicted_price = float(estimator.predict(features)[0])
-    category_median = float(df.loc[df["category"].eq(category), "price_gbp"].median())
+    category_df = df.loc[df["category"].eq(selected_category)]
+    reference = reference_book_for_profile(category_df, selected_profile)
+    stats = category_price_stats(df, selected_category)
+    key_suffix = f"{selected_category}_{selected_profile}"
+
+    with st.container(border=True):
+        st.markdown("##### Perfil do livro")
+        left, right = st.columns(2)
+        with left:
+            rating = st.slider(
+                "Avaliação",
+                1,
+                5,
+                int(reference["rating"]),
+                key=f"ml_rating_{key_suffix}",
+            )
+            stock_quantity = st.number_input(
+                "Estoque declarado",
+                min_value=0,
+                max_value=max_stock,
+                value=int(reference["stock_quantity"]),
+                step=1,
+                key=f"ml_stock_{key_suffix}",
+            )
+            num_reviews = st.number_input(
+                "Reviews",
+                min_value=0,
+                max_value=max_reviews,
+                value=int(reference["num_reviews"]),
+                step=1,
+                key=f"ml_reviews_{key_suffix}",
+            )
+        with right:
+            reference_availability = str(reference["availability_status"])
+            default_availability = (
+                availability_options.index(reference_availability)
+                if reference_availability in availability_options
+                else 0
+            )
+            availability_status = st.selectbox(
+                "Disponibilidade",
+                availability_options,
+                index=default_availability,
+                key=f"ml_availability_{key_suffix}",
+            )
+            title = st.text_input(
+                "Título",
+                value=str(reference["title"]),
+                key=f"ml_title_{key_suffix}",
+            )
+            description = st.text_area(
+                "Descrição",
+                value=str(reference["description"]),
+                height=118,
+                key=f"ml_description_{key_suffix}",
+            )
+
+    title_words = word_count(title)
+    description_words = word_count(description)
+    tone_score = title_tone_score(title)
+    feature_values = {
+        "rating": rating,
+        "stock_quantity": stock_quantity,
+        "title_word_count": title_words,
+        "title_char_count": len(title),
+        "description_word_count": description_words,
+        "title_tone_score": tone_score,
+        "num_reviews": num_reviews,
+        "category": selected_category,
+        "availability_status": availability_status,
+        "title": title,
+        "description": description,
+    }
+    features = pd.DataFrame([feature_values])
+    predicted_price = max(0.0, float(estimator.predict(features)[0]))
+    mae = float(model_report.get("mae", 0.0))
+    lower_bound = max(0.0, predicted_price - mae)
+    upper_bound = predicted_price + mae
+    category_median = float(stats["median"])
     delta = predicted_price - category_median
+    delta_pct = (delta / category_median) * 100 if category_median else 0.0
+    position_label, position_type = price_position_label(predicted_price, stats)
+    percentile = float(category_df["price_gbp"].dropna().le(predicted_price).mean() * 100)
 
-    predicted, median, difference = st.columns(3)
-    predicted.metric("Preco previsto", currency(predicted_price))
-    median.metric("Mediana da categoria", currency(category_median))
-    difference.metric("Diferenca", currency(delta))
+    with st.container(border=True):
+        st.markdown("##### Resultado estimado")
+        predicted, interval, difference = st.columns(3)
+        predicted.metric("Preço estimado", currency(predicted_price))
+        interval.metric("Faixa pelo MAE", f"{currency(lower_bound)} a {currency(upper_bound)}")
+        difference.metric("Vs. mediana da categoria", currency(delta), f"{delta_pct:+.1f}%")
+
+        st.progress(
+            min(max(percentile / 100, 0.0), 1.0),
+            text=f"Percentil estimado na categoria: {percentile:.0f} de 100",
+        )
+        st.info(
+            f"{position_label}: preço {position_type} frente à faixa central da categoria "
+            f"({currency(float(stats['q1']))} a {currency(float(stats['q3']))})."
+        )
+
+        derived_left, derived_middle, derived_right = st.columns(3)
+        derived_left.metric("Palavras no título", title_words)
+        derived_middle.metric("Palavras na descrição", description_words)
+        derived_right.metric("Tom do título", f"{tone_score:+d}")
+
+    observed_stock_min = int(df["stock_quantity"].min())
+    observed_stock_max = int(df["stock_quantity"].max())
+    stock_low = feature_values | {"stock_quantity": observed_stock_min}
+    stock_high = feature_values | {"stock_quantity": observed_stock_max}
+    rating_low = feature_values | {"rating": 1}
+    rating_high = feature_values | {"rating": 5}
+    stock_effect = float(
+        estimator.predict(pd.DataFrame([stock_high]))[0]
+        - estimator.predict(pd.DataFrame([stock_low]))[0]
+    )
+    rating_effect = float(
+        estimator.predict(pd.DataFrame([rating_high]))[0]
+        - estimator.predict(pd.DataFrame([rating_low]))[0]
+    )
+
+    with st.expander("Sensibilidade da previsão", expanded=False):
+        sensitivity_left, sensitivity_right = st.columns(2)
+        sensitivity_left.metric(
+            f"Estoque {observed_stock_min} -> {observed_stock_max}",
+            f"£{stock_effect:+.2f}",
+        )
+        sensitivity_right.metric("Avaliação 1 -> 5", f"£{rating_effect:+.2f}")
+        if abs(stock_effect) < 1:
+            st.caption(
+                "O estoque tem baixo impacto neste modelo porque, nos dados coletados, "
+                "a relação entre estoque declarado e preço é praticamente nula."
+            )
+
+    st.markdown("##### Referências próximas no catálogo")
+    similar = nearest_books(df, selected_category, predicted_price)
+    similar_display = similar[
+        ["title", "price_gbp", "rating", "stock_quantity", "availability_status"]
+    ].rename(
+        columns={
+            "title": "Título",
+            "price_gbp": "Preço (£)",
+            "rating": "Avaliação",
+            "stock_quantity": "Estoque",
+            "availability_status": "Disponibilidade",
+        }
+    )
+    st.dataframe(
+        similar_display,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Preço (£)": st.column_config.NumberColumn("Preço (£)", format="£%.2f"),
+            "Avaliação": st.column_config.NumberColumn("Avaliação", format="%d"),
+            "Estoque": st.column_config.NumberColumn("Estoque", format="%d"),
+        },
+    )
 
 
 def count_ml_ready_rows(df: pd.DataFrame) -> int:
@@ -414,8 +569,8 @@ def select_model_training_data(filtered_df: pd.DataFrame, full_df: pd.DataFrame)
 
     if full_rows >= MIN_MODEL_ROWS:
         st.info(
-            f"O recorte atual tem {filtered_rows} livros validos para ML. "
-            f"Para manter o simulador disponivel, o modelo foi treinado com "
+            f"O recorte atual tem {filtered_rows} livros válidos para ML. "
+            f"Para manter o simulador disponível, o modelo foi treinado com "
             f"o dataset completo ({full_rows} livros)."
         )
         return full_df
@@ -427,23 +582,21 @@ def render_model(filtered_df: pd.DataFrame, full_df: pd.DataFrame) -> None:
     training_df = select_model_training_data(filtered_df, full_df)
     model_report = train_ml_report(training_df)
     if not model_report.get("available"):
-        st.warning(str(model_report.get("reason", "Modelo indisponivel.")))
+        st.warning(str(model_report.get("reason", "Modelo indisponível.")))
         return
 
-    model, mae, rmse, r2, improvement = st.columns(5)
-    model.metric("Modelo do simulador", str(model_report["algorithm"]))
+    model, train_rows, test_rows, mae, r2 = st.columns(5)
+    model.metric("Modelo ML do simulador", str(model_report["algorithm"]))
+    train_rows.metric("Treino", f"{int(model_report['train_rows']):,}".replace(",", "."))
+    test_rows.metric("Teste", f"{int(model_report['test_rows']):,}".replace(",", "."))
     mae.metric("MAE teste", currency(float(model_report["mae"])))
-    rmse.metric("RMSE teste", currency(float(model_report["rmse"])))
-    r2.metric("R2 teste", f"{float(model_report['r2']):.3f}")
-    improvement.metric(
-        "Ganho vs baseline",
-        f"{float(model_report['improvement_vs_baseline_pct']):.1f}%",
+    r2.metric("R² teste", f"{float(model_report['r2']):.3f}")
+    st.caption(
+        "Regressão supervisionada treinada com os dados processados do catálogo. "
+        "Entradas: categoria, avaliação, estoque, disponibilidade, reviews e métricas "
+        "do título/descrição, além de TF-IDF do texto do título e da descrição. "
+        "Alvo previsto: preço do livro (`price_gbp`)."
     )
-    if float(model_report["improvement_vs_baseline_pct"]) <= 0:
-        st.info(
-            "A baseline venceu nesta base de treino. Isso indica que os atributos coletados "
-            "nao explicam o preco melhor do que usar a mediana historica."
-        )
 
     left, right = st.columns([0.95, 1.05])
     with left:
@@ -461,15 +614,13 @@ def render_model(filtered_df: pd.DataFrame, full_df: pd.DataFrame) -> None:
             config=PLOT_CONFIG,
         )
 
-    st.subheader("Comparacao de modelos")
+    st.subheader("Comparação de modelos de machine learning")
     model_metrics = model_report["model_metrics"].assign(
         uso=lambda data: data.apply(
             lambda row: (
                 "Usado no simulador"
                 if row["selecionado"]
-                else "Benchmark"
-                if row["modelo"] == BASELINE_MODEL_NAME
-                else "Comparado"
+                else "Modelo ML comparado"
             ),
             axis=1,
         )
@@ -487,17 +638,15 @@ def render_model(filtered_df: pd.DataFrame, full_df: pd.DataFrame) -> None:
         hide_index=True,
     )
 
-    importance = model_report["feature_importance"]
-    left, right = st.columns([0.95, 1.05])
-    with left:
-        st.plotly_chart(
-            feature_importance_bar(importance),
-            use_container_width=True,
-            theme=None,
-            config=PLOT_CONFIG,
-        )
-    with right:
-        render_price_simulator(training_df, model_report)
+    render_price_simulator(training_df, model_report)
+
+    st.subheader("Impacto das variáveis")
+    st.plotly_chart(
+        feature_importance_bar(model_report["feature_importance"]),
+        use_container_width=True,
+        theme=None,
+        config=PLOT_CONFIG,
+    )
 
     st.subheader("Maiores erros no teste")
     st.dataframe(
