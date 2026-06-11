@@ -1,361 +1,541 @@
 {
   "kpis": {
-    "livros": 400,
-    "categorias": 41,
-    "preco_medio": 34.9598,
-    "preco_mediano": 36.805,
-    "avaliacao_media": 2.9225,
-    "outliers": 1
+    "livros": 1000,
+    "categorias": 50,
+    "preco_medio": 35.070350000000005,
+    "preco_mediano": 35.980000000000004,
+    "avaliacao_media": 2.923,
+    "outliers": 5
   },
   "pearson": [
     {
-      "variavel": "title_word_count",
-      "correlacao_pearson": 0.0517163984258023,
-      "p_valor": 0.3021744333216544,
-      "n": 400,
-      "forca": "muito fraca"
-    },
-    {
       "variavel": "title_tone_score",
-      "correlacao_pearson": 0.04323345579673799,
-      "p_valor": 0.3884859218348671,
-      "n": 400,
-      "forca": "muito fraca"
-    },
-    {
-      "variavel": "title_char_count",
-      "correlacao_pearson": 0.038170654045470924,
-      "p_valor": 0.4464770307209173,
-      "n": 400,
-      "forca": "muito fraca"
-    },
-    {
-      "variavel": "description_word_count",
-      "correlacao_pearson": -0.034781813719955076,
-      "p_valor": 0.48788969075272337,
-      "n": 400,
-      "forca": "muito fraca"
-    },
-    {
-      "variavel": "stock_quantity",
-      "correlacao_pearson": -0.009902624962128008,
-      "p_valor": 0.8434851592795941,
-      "n": 400,
+      "correlacao_pearson": 0.031486712898343844,
+      "p_valor": 0.31988288476022714,
+      "n": 1000,
       "forca": "muito fraca"
     },
     {
       "variavel": "rating",
-      "correlacao_pearson": 0.006753824817222108,
-      "p_valor": 0.892884408874596,
-      "n": 400,
+      "correlacao_pearson": 0.028166239485872963,
+      "p_valor": 0.37359626489955,
+      "n": 1000,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "description_word_count",
+      "correlacao_pearson": 0.023839569164276382,
+      "p_valor": 0.4514273768612483,
+      "n": 1000,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "title_word_count",
+      "correlacao_pearson": 0.019955377968981124,
+      "p_valor": 0.5284865725138099,
+      "n": 1000,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "stock_quantity",
+      "correlacao_pearson": -0.010914066796795588,
+      "p_valor": 0.7303111229311938,
+      "n": 1000,
+      "forca": "muito fraca"
+    },
+    {
+      "variavel": "title_char_count",
+      "correlacao_pearson": 0.006783027536821038,
+      "p_valor": 0.830365868549432,
+      "n": 1000,
       "forca": "muito fraca"
     }
   ],
   "anova_rating": {
     "group_col": "rating_label",
     "value_col": "price_gbp",
-    "f_statistic": 0.4859796655111285,
-    "p_value": 0.7460485774391639,
+    "f_statistic": 0.3659409558613715,
+    "p_value": 0.8329710147157289,
     "groups": 5,
     "interpretation": "Sem evidencia estatistica de diferenca entre grupos"
   },
   "anova_category": {
     "group_col": "category",
     "value_col": "price_gbp",
-    "f_statistic": 1.01463200603054,
-    "p_value": 0.44957185351557044,
-    "groups": 36,
+    "f_statistic": 0.855110370696351,
+    "p_value": 0.7221670862002193,
+    "groups": 40,
     "interpretation": "Sem evidencia estatistica de diferenca entre grupos"
   },
   "quartiles": [
     {
       "price_quartile": "Q1 - Mais barato",
-      "livros": 100,
-      "preco_minimo": 10.16,
-      "preco_mediano": 15.855,
-      "preco_maximo": 21.87,
-      "avaliacao_media": 2.99,
-      "estoque_mediano": 15.0
+      "livros": 250,
+      "preco_minimo": 10.0,
+      "preco_mediano": 16.235,
+      "preco_maximo": 22.1,
+      "avaliacao_media": 3.016,
+      "estoque_mediano": 8.0
     },
     {
       "price_quartile": "Q2 - Abaixo da mediana",
-      "livros": 100,
-      "preco_minimo": 21.95,
-      "preco_mediano": 28.79,
-      "preco_maximo": 36.72,
-      "avaliacao_media": 2.91,
-      "estoque_mediano": 15.0
+      "livros": 250,
+      "preco_minimo": 22.11,
+      "preco_mediano": 28.814999999999998,
+      "preco_maximo": 35.96,
+      "avaliacao_media": 2.772,
+      "estoque_mediano": 6.0
     },
     {
       "price_quartile": "Q3 - Acima da mediana",
-      "livros": 100,
-      "preco_minimo": 36.89,
-      "preco_mediano": 41.58,
-      "preco_maximo": 47.67,
-      "avaliacao_media": 2.74,
-      "estoque_mediano": 15.0
+      "livros": 250,
+      "preco_minimo": 36.0,
+      "preco_mediano": 41.510000000000005,
+      "preco_maximo": 47.44,
+      "avaliacao_media": 2.808,
+      "estoque_mediano": 8.0
     },
     {
       "price_quartile": "Q4 - Mais caro",
-      "livros": 100,
-      "preco_minimo": 47.72,
-      "preco_mediano": 53.9,
-      "preco_maximo": 59.9,
-      "avaliacao_media": 3.05,
-      "estoque_mediano": 14.0
+      "livros": 250,
+      "preco_minimo": 47.51,
+      "preco_mediano": 53.86,
+      "preco_maximo": 59.99,
+      "avaliacao_media": 3.096,
+      "estoque_mediano": 8.0
     }
   ],
   "categories": [
     {
       "category": "Default",
-      "livros": 62,
-      "preco_medio": 36.00967741935484,
-      "preco_mediano": 38.61,
+      "livros": 152,
+      "preco_medio": 34.39269736842105,
+      "preco_mediano": 36.025,
       "preco_minimo": 10.23,
-      "preco_maximo": 58.32,
-      "avaliacao_media": 2.9193548387096775,
-      "estoque_total": 925,
-      "valor_estoque": 32835.6,
+      "preco_maximo": 58.87,
+      "avaliacao_media": 2.835526315789474,
+      "estoque_total": 1345,
+      "valor_estoque": 46916.77,
       "outliers": 0
     },
     {
       "category": "Nonfiction",
-      "livros": 45,
-      "preco_medio": 32.55844444444445,
-      "preco_mediano": 30.81,
+      "livros": 110,
+      "preco_medio": 34.26018181818182,
+      "preco_mediano": 32.15,
       "preco_minimo": 11.68,
       "preco_maximo": 59.9,
-      "avaliacao_media": 3.066666666666667,
-      "estoque_total": 663,
-      "valor_estoque": 21578.34,
+      "avaliacao_media": 2.881818181818182,
+      "estoque_total": 975,
+      "valor_estoque": 32123.26,
       "outliers": 0
     },
     {
       "category": "Sequential Art",
-      "livros": 38,
-      "preco_medio": 34.195263157894736,
-      "preco_mediano": 36.61,
+      "livros": 75,
+      "preco_medio": 34.57226666666667,
+      "preco_mediano": 36.52,
       "preco_minimo": 10.16,
       "preco_maximo": 57.62,
-      "avaliacao_media": 2.8947368421052633,
-      "estoque_total": 581,
-      "valor_estoque": 19868.01,
-      "outliers": 0
-    },
-    {
-      "category": "Fiction",
-      "livros": 28,
-      "preco_medio": 36.55607142857143,
-      "preco_mediano": 40.64,
-      "preco_minimo": 10.6,
-      "preco_maximo": 59.45,
-      "avaliacao_media": 3.3214285714285716,
-      "estoque_total": 404,
-      "valor_estoque": 14800.78,
+      "avaliacao_media": 2.973333333333333,
+      "estoque_total": 686,
+      "valor_estoque": 23286.02,
       "outliers": 0
     },
     {
       "category": "Add a comment",
-      "livros": 23,
-      "preco_medio": 33.89565217391304,
-      "preco_mediano": 34.2,
-      "preco_minimo": 11.88,
+      "livros": 67,
+      "preco_medio": 35.796417910447765,
+      "preco_mediano": 36.17,
+      "preco_minimo": 10.02,
       "preco_maximo": 59.15,
-      "avaliacao_media": 2.9130434782608696,
-      "estoque_total": 325,
-      "valor_estoque": 11011.4,
+      "avaliacao_media": 2.7611940298507465,
+      "estoque_total": 516,
+      "valor_estoque": 18315.24,
+      "outliers": 0
+    },
+    {
+      "category": "Fiction",
+      "livros": 65,
+      "preco_medio": 36.06661538461538,
+      "preco_mediano": 39.72,
+      "preco_minimo": 10.6,
+      "preco_maximo": 59.98,
+      "avaliacao_media": 3.1846153846153844,
+      "estoque_total": 588,
+      "valor_estoque": 21445.99,
       "outliers": 0
     },
     {
       "category": "Young Adult",
-      "livros": 21,
-      "preco_medio": 36.30809523809524,
-      "preco_mediano": 38.28,
-      "preco_minimo": 14.36,
+      "livros": 54,
+      "preco_medio": 35.449074074074076,
+      "preco_mediano": 36.61,
+      "preco_minimo": 10.0,
       "preco_maximo": 58.14,
-      "avaliacao_media": 3.0952380952380953,
-      "estoque_total": 310,
-      "valor_estoque": 11035.27,
+      "avaliacao_media": 3.2962962962962963,
+      "estoque_total": 464,
+      "valor_estoque": 16714.84,
       "outliers": 0
     },
     {
       "category": "Fantasy",
-      "livros": 18,
-      "preco_medio": 38.71333333333334,
-      "preco_mediano": 40.855,
-      "preco_minimo": 13.34,
-      "preco_maximo": 56.4,
-      "avaliacao_media": 2.8333333333333335,
-      "estoque_total": 266,
-      "valor_estoque": 10249.34,
-      "outliers": 0
-    },
-    {
-      "category": "Mystery",
-      "livros": 17,
-      "preco_medio": 32.78352941176471,
-      "preco_mediano": 27.26,
-      "preco_minimo": 10.69,
-      "preco_maximo": 59.48,
-      "avaliacao_media": 2.588235294117647,
-      "estoque_total": 237,
-      "valor_estoque": 7859.87,
-      "outliers": 0
-    },
-    {
-      "category": "Food and Drink",
-      "livros": 16,
-      "preco_medio": 33.133125,
-      "preco_mediano": 35.355000000000004,
-      "preco_minimo": 11.53,
-      "preco_maximo": 56.41,
-      "avaliacao_media": 2.5,
-      "estoque_total": 236,
-      "valor_estoque": 7891.32,
+      "livros": 48,
+      "preco_medio": 39.59395833333333,
+      "preco_mediano": 43.58,
+      "preco_minimo": 12.16,
+      "preco_maximo": 58.75,
+      "avaliacao_media": 3.0833333333333335,
+      "estoque_total": 372,
+      "valor_estoque": 14591.77,
       "outliers": 0
     },
     {
       "category": "Romance",
-      "livros": 14,
-      "preco_medio": 33.39785714285714,
-      "preco_mediano": 33.29,
-      "preco_minimo": 15.97,
-      "preco_maximo": 55.99,
-      "avaliacao_media": 2.857142857142857,
-      "estoque_total": 208,
-      "valor_estoque": 6734.13,
+      "livros": 35,
+      "preco_medio": 33.93371428571429,
+      "preco_mediano": 34.53,
+      "preco_minimo": 11.1,
+      "preco_maximo": 59.99,
+      "avaliacao_media": 2.6285714285714286,
+      "estoque_total": 269,
+      "valor_estoque": 8472.73,
       "outliers": 0
     },
     {
-      "category": "Poetry",
-      "livros": 11,
-      "preco_medio": 36.96181818181818,
-      "preco_mediano": 41.05,
-      "preco_minimo": 14.19,
-      "preco_maximo": 57.31,
-      "avaliacao_media": 2.909090909090909,
-      "estoque_total": 187,
-      "valor_estoque": 6946.33,
+      "category": "Mystery",
+      "livros": 32,
+      "preco_medio": 31.7190625,
+      "preco_mediano": 25.384999999999998,
+      "preco_minimo": 10.69,
+      "preco_maximo": 59.48,
+      "avaliacao_media": 2.9375,
+      "estoque_total": 290,
+      "valor_estoque": 9496.48,
+      "outliers": 0
+    },
+    {
+      "category": "Food and Drink",
+      "livros": 30,
+      "preco_medio": 31.41466666666667,
+      "preco_mediano": 31.83,
+      "preco_minimo": 11.05,
+      "preco_maximo": 59.92,
+      "avaliacao_media": 2.9,
+      "estoque_total": 319,
+      "valor_estoque": 10347.51,
       "outliers": 0
     },
     {
       "category": "Childrens",
-      "livros": 10,
-      "preco_medio": 35.005,
-      "preco_mediano": 30.23,
-      "preco_minimo": 12.96,
+      "livros": 29,
+      "preco_medio": 32.638275862068966,
+      "preco_mediano": 28.54,
+      "preco_minimo": 10.62,
       "preco_maximo": 58.08,
-      "avaliacao_media": 2.7,
-      "estoque_total": 153,
-      "valor_estoque": 5505.27,
+      "avaliacao_media": 2.6206896551724137,
+      "estoque_total": 229,
+      "valor_estoque": 7957.43,
       "outliers": 0
     },
     {
       "category": "Historical Fiction",
-      "livros": 9,
-      "preco_medio": 37.73777777777778,
-      "preco_mediano": 36.95,
-      "preco_minimo": 20.55,
-      "preco_maximo": 55.53,
-      "avaliacao_media": 3.111111111111111,
-      "estoque_total": 134,
-      "valor_estoque": 5195.92,
+      "livros": 26,
+      "preco_medio": 33.64423076923077,
+      "preco_mediano": 31.61,
+      "preco_minimo": 16.62,
+      "preco_maximo": 55.55,
+      "avaliacao_media": 3.230769230769231,
+      "estoque_total": 194,
+      "valor_estoque": 6946.26,
+      "outliers": 0
+    },
+    {
+      "category": "Poetry",
+      "livros": 19,
+      "preco_medio": 35.97421052631579,
+      "preco_mediano": 38.77,
+      "preco_minimo": 14.19,
+      "preco_maximo": 57.31,
+      "avaliacao_media": 3.526315789473684,
+      "estoque_total": 235,
+      "valor_estoque": 8694.33,
+      "outliers": 0
+    },
+    {
+      "category": "Classics",
+      "livros": 19,
+      "preco_medio": 36.54526315789474,
+      "preco_mediano": 35.01,
+      "preco_minimo": 14.82,
+      "preco_maximo": 58.63,
+      "avaliacao_media": 2.473684210526316,
+      "estoque_total": 55,
+      "valor_estoque": 1888.6100000000001,
       "outliers": 0
     },
     {
       "category": "History",
-      "livros": 8,
-      "preco_medio": 32.06,
-      "preco_mediano": 25.11,
-      "preco_minimo": 14.58,
+      "livros": 18,
+      "preco_medio": 37.294999999999995,
+      "preco_mediano": 41.29,
+      "preco_minimo": 11.45,
       "preco_maximo": 59.64,
-      "avaliacao_media": 2.375,
-      "estoque_total": 125,
-      "valor_estoque": 4138.8,
+      "avaliacao_media": 2.9444444444444446,
+      "estoque_total": 181,
+      "valor_estoque": 6467.28,
+      "outliers": 0
+    },
+    {
+      "category": "Womens Fiction",
+      "livros": 17,
+      "preco_medio": 36.79117647058824,
+      "preco_mediano": 43.58,
+      "preco_minimo": 13.73,
+      "preco_maximo": 57.36,
+      "avaliacao_media": 3.1176470588235294,
+      "estoque_total": 91,
+      "valor_estoque": 3401.3900000000003,
       "outliers": 0
     },
     {
       "category": "Horror",
-      "livros": 7,
-      "preco_medio": 31.47142857142857,
+      "livros": 17,
+      "preco_medio": 35.94941176470588,
       "preco_mediano": 36.97,
       "preco_minimo": 10.56,
-      "preco_maximo": 48.64,
-      "avaliacao_media": 2.142857142857143,
-      "estoque_total": 97,
-      "valor_estoque": 3012.84,
-      "outliers": 0
-    },
-    {
-      "category": "Business",
-      "livros": 7,
-      "preco_medio": 28.640000000000004,
-      "preco_mediano": 27.55,
-      "preco_minimo": 12.61,
-      "preco_maximo": 43.14,
-      "avaliacao_media": 3.2857142857142856,
-      "estoque_total": 101,
-      "valor_estoque": 2888.29,
+      "preco_maximo": 57.86,
+      "avaliacao_media": 2.7058823529411766,
+      "estoque_total": 136,
+      "valor_estoque": 4472.98,
       "outliers": 0
     },
     {
       "category": "Science Fiction",
-      "livros": 6,
-      "preco_medio": 33.678333333333335,
-      "preco_mediano": 36.63,
+      "livros": 16,
+      "preco_medio": 33.8025,
+      "preco_mediano": 35.315,
       "preco_minimo": 10.65,
-      "preco_maximo": 48.74,
-      "avaliacao_media": 2.3333333333333335,
-      "estoque_total": 91,
-      "valor_estoque": 3022.12,
-      "outliers": 0
-    },
-    {
-      "category": "Thriller",
-      "livros": 6,
-      "preco_medio": 30.925,
-      "preco_mediano": 31.53,
-      "preco_minimo": 12.84,
-      "preco_maximo": 52.22,
-      "avaliacao_media": 3.0,
-      "estoque_total": 97,
-      "valor_estoque": 2966.06,
+      "preco_maximo": 54.86,
+      "avaliacao_media": 2.25,
+      "estoque_total": 125,
+      "valor_estoque": 4043.35,
       "outliers": 0
     },
     {
       "category": "Science",
-      "livros": 4,
-      "preco_medio": 45.6525,
-      "preco_mediano": 43.85,
-      "preco_minimo": 37.55,
+      "livros": 14,
+      "preco_medio": 33.08857142857143,
+      "preco_mediano": 30.025,
+      "preco_minimo": 10.01,
       "preco_maximo": 57.36,
-      "avaliacao_media": 3.5,
-      "estoque_total": 58,
-      "valor_estoque": 2682.08,
-      "outliers": 1
+      "avaliacao_media": 2.9285714285714284,
+      "estoque_total": 105,
+      "valor_estoque": 4042.7,
+      "outliers": 0
     },
     {
       "category": "Music",
-      "livros": 4,
-      "preco_medio": 36.905,
-      "preco_mediano": 36.17,
-      "preco_minimo": 18.03,
+      "livros": 13,
+      "preco_medio": 35.636923076923075,
+      "preco_mediano": 35.02,
+      "preco_minimo": 12.36,
       "preco_maximo": 57.25,
-      "avaliacao_media": 2.75,
-      "estoque_total": 71,
-      "valor_estoque": 2714.63,
+      "avaliacao_media": 3.1538461538461537,
+      "estoque_total": 111,
+      "valor_estoque": 4161.89,
+      "outliers": 0
+    },
+    {
+      "category": "Business",
+      "livros": 12,
+      "preco_medio": 32.46,
+      "preco_mediano": 33.63,
+      "preco_minimo": 12.61,
+      "preco_maximo": 51.74,
+      "avaliacao_media": 2.9166666666666665,
+      "estoque_total": 133,
+      "valor_estoque": 4019.6400000000003,
+      "outliers": 0
+    },
+    {
+      "category": "Travel",
+      "livros": 11,
+      "preco_medio": 39.79454545454546,
+      "preco_mediano": 38.95,
+      "preco_minimo": 23.21,
+      "preco_maximo": 56.88,
+      "avaliacao_media": 2.727272727272727,
+      "estoque_total": 89,
+      "valor_estoque": 3888.15,
+      "outliers": 0
+    },
+    {
+      "category": "Thriller",
+      "livros": 11,
+      "preco_medio": 31.433636363636364,
+      "preco_mediano": 31.49,
+      "preco_minimo": 12.84,
+      "preco_maximo": 59.71,
+      "avaliacao_media": 2.727272727272727,
+      "estoque_total": 119,
+      "valor_estoque": 3659.3,
+      "outliers": 0
+    },
+    {
+      "category": "Philosophy",
+      "livros": 11,
+      "preco_medio": 33.558181818181815,
+      "preco_mediano": 29.93,
+      "preco_minimo": 15.94,
+      "preco_maximo": 58.11,
+      "avaliacao_media": 2.3636363636363638,
+      "estoque_total": 82,
+      "valor_estoque": 2747.91,
       "outliers": 0
     },
     {
       "category": "Humor",
-      "livros": 4,
-      "preco_medio": 24.1575,
-      "preco_mediano": 20.365000000000002,
+      "livros": 10,
+      "preco_medio": 33.501,
+      "preco_mediano": 31.29,
       "preco_minimo": 11.83,
-      "preco_maximo": 44.07,
+      "preco_maximo": 55.5,
+      "avaliacao_media": 3.4,
+      "estoque_total": 84,
+      "valor_estoque": 2432.2400000000002,
+      "outliers": 0
+    },
+    {
+      "category": "Autobiography",
+      "livros": 9,
+      "preco_medio": 37.053333333333335,
+      "preco_mediano": 40.85,
+      "preco_minimo": 10.93,
+      "preco_maximo": 59.04,
+      "avaliacao_media": 3.0,
+      "estoque_total": 57,
+      "valor_estoque": 1793.46,
+      "outliers": 0
+    },
+    {
+      "category": "Art",
+      "livros": 8,
+      "preco_medio": 38.52,
+      "preco_mediano": 42.08,
+      "preco_minimo": 10.29,
+      "preco_maximo": 49.05,
+      "avaliacao_media": 3.625,
+      "estoque_total": 72,
+      "valor_estoque": 2899.96,
+      "outliers": 1
+    },
+    {
+      "category": "Psychology",
+      "livros": 7,
+      "preco_medio": 34.21857142857143,
+      "preco_mediano": 31.04,
+      "preco_minimo": 10.4,
+      "preco_maximo": 59.95,
+      "avaliacao_media": 1.7142857142857142,
+      "estoque_total": 52,
+      "valor_estoque": 1701.92,
+      "outliers": 0
+    },
+    {
+      "category": "Religion",
+      "livros": 7,
+      "preco_medio": 32.567142857142855,
+      "preco_mediano": 28.42,
+      "preco_minimo": 21.87,
+      "preco_maximo": 57.49,
+      "avaliacao_media": 3.142857142857143,
+      "estoque_total": 60,
+      "valor_estoque": 1773.51,
+      "outliers": 1
+    },
+    {
+      "category": "New Adult",
+      "livros": 6,
+      "preco_medio": 46.38333333333333,
+      "preco_mediano": 44.18,
+      "preco_minimo": 36.29,
+      "preco_maximo": 58.35,
+      "avaliacao_media": 3.1666666666666665,
+      "estoque_total": 49,
+      "valor_estoque": 2342.31,
+      "outliers": 0
+    },
+    {
+      "category": "Spirituality",
+      "livros": 6,
+      "preco_medio": 35.098333333333336,
+      "preco_mediano": 35.019999999999996,
+      "preco_minimo": 17.66,
+      "preco_maximo": 55.65,
+      "avaliacao_media": 3.3333333333333335,
+      "estoque_total": 69,
+      "valor_estoque": 2135.82,
+      "outliers": 0
+    },
+    {
+      "category": "Christian Fiction",
+      "livros": 6,
+      "preco_medio": 34.385,
+      "preco_mediano": 34.22,
+      "preco_minimo": 17.97,
+      "preco_maximo": 49.97,
+      "avaliacao_media": 4.166666666666667,
+      "estoque_total": 55,
+      "valor_estoque": 1843.3999999999999,
+      "outliers": 0
+    },
+    {
+      "category": "Self Help",
+      "livros": 5,
+      "preco_medio": 40.62,
+      "preco_mediano": 46.35,
+      "preco_minimo": 12.08,
+      "preco_maximo": 52.15,
+      "avaliacao_media": 2.6,
+      "estoque_total": 59,
+      "valor_estoque": 2571.6800000000003,
+      "outliers": 2
+    },
+    {
+      "category": "Sports and Games",
+      "livros": 5,
+      "preco_medio": 41.166,
+      "preco_mediano": 44.84,
+      "preco_minimo": 24.42,
+      "preco_maximo": 51.22,
+      "avaliacao_media": 3.0,
+      "estoque_total": 10,
+      "valor_estoque": 422.37,
+      "outliers": 1
+    },
+    {
+      "category": "Biography",
+      "livros": 5,
+      "preco_medio": 33.662,
+      "preco_mediano": 39.55,
+      "preco_minimo": 16.85,
+      "preco_maximo": 48.19,
+      "avaliacao_media": 2.2,
+      "estoque_total": 43,
+      "valor_estoque": 1227.29,
+      "outliers": 0
+    },
+    {
+      "category": "Health",
+      "livros": 4,
+      "preco_medio": 51.4525,
+      "preco_mediano": 51.345,
+      "preco_minimo": 49.05,
+      "preco_maximo": 54.07,
       "avaliacao_media": 3.75,
-      "estoque_total": 56,
-      "valor_estoque": 1352.8200000000002,
+      "estoque_total": 49,
+      "valor_estoque": 2515.7,
       "outliers": 0
     },
     {
@@ -371,171 +551,75 @@
       "outliers": 0
     },
     {
-      "category": "Travel",
-      "livros": 3,
-      "preco_medio": 47.82333333333333,
-      "preco_mediano": 48.87,
-      "preco_minimo": 45.17,
-      "preco_maximo": 49.43,
-      "avaliacao_media": 3.0,
-      "estoque_total": 48,
-      "valor_estoque": 2283.86,
-      "outliers": 0
-    },
-    {
-      "category": "Self Help",
-      "livros": 3,
-      "preco_medio": 48.17666666666667,
-      "preco_mediano": 46.35,
-      "preco_minimo": 46.03,
-      "preco_maximo": 52.15,
-      "avaliacao_media": 1.6666666666666667,
-      "estoque_total": 46,
-      "valor_estoque": 2208.1800000000003,
-      "outliers": 0
-    },
-    {
-      "category": "New Adult",
-      "livros": 3,
-      "preco_medio": 48.07,
-      "preco_mediano": 45.07,
-      "preco_minimo": 43.29,
-      "preco_maximo": 55.85,
-      "avaliacao_media": 2.0,
-      "estoque_total": 46,
-      "valor_estoque": 2208.2200000000003,
-      "outliers": 0
-    },
-    {
-      "category": "Spirituality",
-      "livros": 3,
-      "preco_medio": 29.23333333333333,
-      "preco_mediano": 32.24,
-      "preco_minimo": 17.66,
-      "preco_maximo": 37.8,
-      "avaliacao_media": 4.0,
-      "estoque_total": 49,
-      "valor_estoque": 1400.72,
-      "outliers": 0
-    },
-    {
-      "category": "Religion",
-      "livros": 3,
-      "preco_medio": 29.956666666666667,
-      "preco_mediano": 30.03,
-      "preco_minimo": 21.87,
-      "preco_maximo": 37.97,
-      "avaliacao_media": 3.6666666666666665,
-      "estoque_total": 45,
-      "valor_estoque": 1355.99,
-      "outliers": 0
-    },
-    {
-      "category": "Philosophy",
-      "livros": 3,
-      "preco_medio": 30.49666666666667,
-      "preco_mediano": 17.44,
-      "preco_minimo": 15.94,
-      "preco_maximo": 58.11,
-      "avaliacao_media": 4.333333333333333,
-      "estoque_total": 49,
-      "valor_estoque": 1478.28,
-      "outliers": 0
-    },
-    {
-      "category": "Health",
-      "livros": 2,
-      "preco_medio": 51.56,
-      "preco_mediano": 51.56,
-      "preco_minimo": 49.05,
-      "preco_maximo": 54.07,
-      "avaliacao_media": 2.5,
-      "estoque_total": 30,
-      "valor_estoque": 1541.78,
-      "outliers": 0
-    },
-    {
       "category": "Christian",
-      "livros": 2,
-      "preco_medio": 50.86,
-      "preco_mediano": 50.86,
-      "preco_minimo": 47.72,
+      "livros": 3,
+      "preco_medio": 42.49666666666666,
+      "preco_mediano": 47.72,
+      "preco_minimo": 25.77,
       "preco_maximo": 54.0,
-      "avaliacao_media": 3.5,
-      "estoque_total": 30,
-      "valor_estoque": 1532.08,
-      "outliers": 0
-    },
-    {
-      "category": "Art",
-      "livros": 2,
-      "preco_medio": 46.614999999999995,
-      "preco_mediano": 46.614999999999995,
-      "preco_minimo": 44.18,
-      "preco_maximo": 49.05,
-      "avaliacao_media": 3.5,
-      "estoque_total": 32,
-      "valor_estoque": 1481.94,
+      "avaliacao_media": 2.6666666666666665,
+      "estoque_total": 37,
+      "valor_estoque": 1712.4699999999998,
       "outliers": 0
     },
     {
       "category": "Contemporary",
-      "livros": 2,
-      "preco_medio": 42.28,
-      "preco_mediano": 42.28,
-      "preco_minimo": 31.77,
+      "livros": 3,
+      "preco_medio": 36.199999999999996,
+      "preco_mediano": 31.77,
+      "preco_minimo": 24.04,
       "preco_maximo": 52.79,
+      "avaliacao_media": 2.3333333333333335,
+      "estoque_total": 33,
+      "valor_estoque": 1319.5,
+      "outliers": 0
+    },
+    {
+      "category": "Historical",
+      "livros": 2,
+      "preco_medio": 22.83,
+      "preco_mediano": 22.83,
+      "preco_minimo": 15.79,
+      "preco_maximo": 29.87,
       "avaliacao_media": 3.0,
-      "estoque_total": 30,
-      "valor_estoque": 1247.3799999999999,
+      "estoque_total": 20,
+      "valor_estoque": 512.92,
       "outliers": 0
     },
     {
-      "category": "Womens Fiction",
-      "livros": 2,
-      "preco_medio": 35.61,
-      "preco_mediano": 35.61,
-      "preco_minimo": 13.86,
-      "preco_maximo": 57.36,
-      "avaliacao_media": 3.5,
-      "estoque_total": 27,
-      "valor_estoque": 1026.72,
+      "category": "Suspense",
+      "livros": 1,
+      "preco_medio": 58.33,
+      "preco_mediano": 58.33,
+      "preco_minimo": 58.33,
+      "preco_maximo": 58.33,
+      "avaliacao_media": 3.0,
+      "estoque_total": 8,
+      "valor_estoque": 466.64,
       "outliers": 0
     },
     {
-      "category": "Christian Fiction",
-      "livros": 2,
-      "preco_medio": 34.965,
-      "preco_mediano": 34.965,
-      "preco_minimo": 20.47,
-      "preco_maximo": 49.46,
-      "avaliacao_media": 4.5,
-      "estoque_total": 30,
-      "valor_estoque": 1048.9499999999998,
+      "category": "Novels",
+      "livros": 1,
+      "preco_medio": 54.81,
+      "preco_mediano": 54.81,
+      "preco_minimo": 54.81,
+      "preco_maximo": 54.81,
+      "avaliacao_media": 5.0,
+      "estoque_total": 9,
+      "valor_estoque": 493.29,
       "outliers": 0
     },
     {
-      "category": "Psychology",
-      "livros": 2,
-      "preco_medio": 24.915,
-      "preco_mediano": 24.915,
-      "preco_minimo": 10.4,
-      "preco_maximo": 39.43,
-      "avaliacao_media": 1.0,
-      "estoque_total": 26,
-      "valor_estoque": 618.76,
-      "outliers": 0
-    },
-    {
-      "category": "Biography",
-      "livros": 2,
-      "preco_medio": 19.0,
-      "preco_mediano": 19.0,
-      "preco_minimo": 16.85,
-      "preco_maximo": 21.15,
+      "category": "Parenting",
+      "livros": 1,
+      "preco_medio": 37.35,
+      "preco_mediano": 37.35,
+      "preco_minimo": 37.35,
+      "preco_maximo": 37.35,
       "avaliacao_media": 2.0,
-      "estoque_total": 26,
-      "valor_estoque": 485.40000000000003,
+      "estoque_total": 3,
+      "valor_estoque": 112.05000000000001,
       "outliers": 0
     },
     {
@@ -551,15 +635,15 @@
       "outliers": 0
     },
     {
-      "category": "Historical",
+      "category": "Short Stories",
       "livros": 1,
-      "preco_medio": 29.87,
-      "preco_mediano": 29.87,
-      "preco_minimo": 29.87,
-      "preco_maximo": 29.87,
-      "avaliacao_media": 5.0,
-      "estoque_total": 14,
-      "valor_estoque": 418.18,
+      "preco_medio": 35.88,
+      "preco_mediano": 35.88,
+      "preco_minimo": 35.88,
+      "preco_maximo": 35.88,
+      "avaliacao_media": 1.0,
+      "estoque_total": 8,
+      "valor_estoque": 287.04,
       "outliers": 0
     },
     {
@@ -575,6 +659,42 @@
       "outliers": 0
     },
     {
+      "category": "Paranormal",
+      "livros": 1,
+      "preco_medio": 15.4,
+      "preco_mediano": 15.4,
+      "preco_minimo": 15.4,
+      "preco_maximo": 15.4,
+      "avaliacao_media": 1.0,
+      "estoque_total": 1,
+      "valor_estoque": 15.4,
+      "outliers": 0
+    },
+    {
+      "category": "Adult Fiction",
+      "livros": 1,
+      "preco_medio": 15.36,
+      "preco_mediano": 15.36,
+      "preco_minimo": 15.36,
+      "preco_maximo": 15.36,
+      "avaliacao_media": 5.0,
+      "estoque_total": 3,
+      "valor_estoque": 46.08,
+      "outliers": 0
+    },
+    {
+      "category": "Academic",
+      "livros": 1,
+      "preco_medio": 13.12,
+      "preco_mediano": 13.12,
+      "preco_minimo": 13.12,
+      "preco_maximo": 13.12,
+      "avaliacao_media": 2.0,
+      "estoque_total": 5,
+      "valor_estoque": 65.6,
+      "outliers": 0
+    },
+    {
       "category": "Crime",
       "livros": 1,
       "preco_medio": 10.97,
@@ -585,85 +705,2146 @@
       "estoque_total": 15,
       "valor_estoque": 164.55,
       "outliers": 0
-    },
-    {
-      "category": "Autobiography",
-      "livros": 1,
-      "preco_medio": 10.93,
-      "preco_mediano": 10.93,
-      "preco_minimo": 10.93,
-      "preco_maximo": 10.93,
-      "avaliacao_media": 2.0,
-      "estoque_total": 15,
-      "valor_estoque": 163.95,
-      "outliers": 0
     }
   ],
   "outliers": [
     {
-      "title": "Immunity: How Elie Metchnikoff Changed the Course of Modern Medicine",
-      "category": "Science",
-      "price_gbp": 57.36,
-      "rating": 5,
-      "stock_quantity": 16,
-      "price_vs_category_median_pct": 30.809578107183565
+      "title": "The Bhagavad Gita",
+      "category": "Religion",
+      "price_gbp": 57.49,
+      "rating": 3,
+      "stock_quantity": 1,
+      "price_vs_category_median_pct": 102.2871217452498
+    },
+    {
+      "title": "Overload: How to Unplug, Unwind, and Unleash Yourself from the Pressure of Stress",
+      "category": "Self Help",
+      "price_gbp": 52.15,
+      "rating": 3,
+      "stock_quantity": 14,
+      "price_vs_category_median_pct": 12.513484358144545
+    },
+    {
+      "title": "Sugar Rush (Offensive Line #2)",
+      "category": "Sports and Games",
+      "price_gbp": 24.42,
+      "rating": 1,
+      "stock_quantity": 2,
+      "price_vs_category_median_pct": -45.539696699375554
+    },
+    {
+      "title": "You Are a Badass: How to Stop Doubting Your Greatness and Start Living an Awesome Life",
+      "category": "Self Help",
+      "price_gbp": 12.08,
+      "rating": 3,
+      "stock_quantity": 7,
+      "price_vs_category_median_pct": -73.93743257820928
+    },
+    {
+      "title": "History of Beauty",
+      "category": "Art",
+      "price_gbp": 10.29,
+      "rating": 4,
+      "stock_quantity": 8,
+      "price_vs_category_median_pct": -75.54657794676807
     }
   ],
   "ml": {
     "available": true,
-    "algorithm": "RandomForestRegressor",
-    "train_rows": 300,
-    "test_rows": 100,
-    "mae": 13.12457090354784,
-    "r2": -0.1346966603124995,
+    "algorithm": "Ridge regularizado",
+    "best_metric_algorithm": "Baseline mediana",
+    "train_rows": 750,
+    "test_rows": 250,
+    "cv_folds": 5,
+    "mae": 13.625842068360356,
+    "rmse": 15.631583022634207,
+    "r2": -0.03785929590419346,
+    "baseline_mae": 13.342960000000001,
+    "improvement_vs_baseline_pct": -2.1200848114687787,
+    "model_metrics": [
+      {
+        "modelo": "Baseline mediana",
+        "mae_cv": 12.280186666666665,
+        "rmse_cv": 14.177675922564223,
+        "r2_cv": -0.01692925920457129,
+        "mae_teste": 13.342960000000001,
+        "rmse_teste": 15.345625650327849,
+        "r2_teste": -0.0002343282412080594,
+        "folds_cv": 5,
+        "selecionado": false
+      },
+      {
+        "modelo": "Ridge regularizado",
+        "mae_cv": 12.422946825749932,
+        "rmse_cv": 14.396430189268404,
+        "r2_cv": -0.04865896932584328,
+        "mae_teste": 13.625842068360356,
+        "rmse_teste": 15.631583022634207,
+        "r2_teste": -0.03785929590419346,
+        "folds_cv": 5,
+        "selecionado": true
+      },
+      {
+        "modelo": "Random Forest",
+        "mae_cv": 12.548829240755229,
+        "rmse_cv": 14.660643285940091,
+        "r2_cv": -0.08778278377158469,
+        "mae_teste": 13.94447491301511,
+        "rmse_teste": 16.093928088123295,
+        "r2_teste": -0.1001620737624973,
+        "folds_cv": 5,
+        "selecionado": false
+      },
+      {
+        "modelo": "Gradient Boosting",
+        "mae_cv": 12.67584591796776,
+        "rmse_cv": 14.804526636696167,
+        "r2_cv": -0.1090985577105315,
+        "mae_teste": 13.830092959020247,
+        "rmse_teste": 15.960034145382982,
+        "r2_teste": -0.08193255484695161,
+        "folds_cv": 5,
+        "selecionado": false
+      }
+    ],
     "feature_importance": [
       {
-        "feature": "description_word_count",
-        "importance": 0.33446234626336735
+        "feature": "Caracteres no titulo",
+        "importance": 0.06767701715936303
       },
       {
-        "feature": "title_char_count",
-        "importance": 0.2054197601775676
+        "feature": "Tom do titulo",
+        "importance": 0.012406904280713959
       },
       {
-        "feature": "title_word_count",
-        "importance": 0.11765027934580308
+        "feature": "Avaliacao",
+        "importance": 0.00932406204345675
       },
       {
-        "feature": "rating",
-        "importance": 0.0996727230284278
+        "feature": "Palavras na descricao",
+        "importance": 0.007293709775879176
       },
       {
-        "feature": "stock_quantity",
-        "importance": 0.09392121554291219
+        "feature": "Estoque declarado",
+        "importance": 0.0
       },
       {
-        "feature": "title_tone_score",
-        "importance": 0.038972084775493486
+        "feature": "Palavras no titulo",
+        "importance": 0.0
       },
       {
-        "feature": "category_Nonfiction",
-        "importance": 0.02441999057581867
+        "feature": "Reviews",
+        "importance": 0.0
       },
       {
-        "feature": "category_Mystery",
-        "importance": 0.01904880894141704
+        "feature": "Categoria",
+        "importance": 0.0
       },
       {
-        "feature": "category_Default",
-        "importance": 0.012980341689415916
+        "feature": "Disponibilidade",
+        "importance": 0.0
+      }
+    ],
+    "residuals": [
+      {
+        "title": "Brilliant Beacons: A History of the American Lighthouse",
+        "category": "History",
+        "preco_real": 11.45,
+        "preco_previsto": 41.11571297651621,
+        "erro": 29.665712976516208,
+        "erro_absoluto": 29.665712976516208
       },
       {
-        "feature": "category_Fiction",
-        "importance": 0.010208212861295623
+        "title": "Civilization and Its Discontents",
+        "category": "Psychology",
+        "preco_real": 59.95,
+        "preco_previsto": 31.552681210263252,
+        "erro": -28.39731878973675,
+        "erro_absoluto": 28.39731878973675
       },
       {
-        "feature": "category_Sequential Art",
-        "importance": 0.008133145745639678
+        "title": "Every Heart a Doorway (Every Heart A Doorway #1)",
+        "category": "Fantasy",
+        "preco_real": 12.16,
+        "preco_previsto": 40.48182794274156,
+        "erro": 28.32182794274156,
+        "erro_absoluto": 28.32182794274156
       },
       {
-        "feature": "category_Food and Drink",
-        "importance": 0.005758960982435312
+        "title": "The Bone Hunters (Lexy Vaughan & Steven Macaulay #2)",
+        "category": "Thriller",
+        "preco_real": 59.71,
+        "preco_previsto": 32.888328172322666,
+        "erro": -26.821671827677335,
+        "erro_absoluto": 26.821671827677335
+      },
+      {
+        "title": "Lust & Wonder",
+        "category": "Autobiography",
+        "preco_real": 11.87,
+        "preco_previsto": 38.638131759331564,
+        "erro": 26.768131759331567,
+        "erro_absoluto": 26.768131759331567
+      },
+      {
+        "title": "The Argonauts",
+        "category": "Autobiography",
+        "preco_real": 10.93,
+        "preco_previsto": 37.34074355295968,
+        "erro": 26.41074355295968,
+        "erro_absoluto": 26.41074355295968
+      },
+      {
+        "title": "Sister Sable (The Mad Queen #1)",
+        "category": "Fantasy",
+        "preco_real": 13.33,
+        "preco_previsto": 39.71128587484356,
+        "erro": 26.381285874843563,
+        "erro_absoluto": 26.381285874843563
+      },
+      {
+        "title": "The Restaurant at the End of the Universe (Hitchhiker's Guide to the Galaxy #2)",
+        "category": "Science Fiction",
+        "preco_real": 10.92,
+        "preco_previsto": 36.332330936020035,
+        "erro": 25.412330936020034,
+        "erro_absoluto": 25.412330936020034
+      },
+      {
+        "title": "A Distant Mirror: The Calamitous 14th Century",
+        "category": "History",
+        "preco_real": 14.58,
+        "preco_previsto": 39.95131776730508,
+        "erro": 25.37131776730508,
+        "erro_absoluto": 25.37131776730508
+      },
+      {
+        "title": "The Guns of August",
+        "category": "History",
+        "preco_real": 14.54,
+        "preco_previsto": 39.75937876131244,
+        "erro": 25.21937876131244,
+        "erro_absoluto": 25.21937876131244
+      },
+      {
+        "title": "The Complete Maus (Maus #1-2)",
+        "category": "Sequential Art",
+        "preco_real": 10.64,
+        "preco_previsto": 35.6390477421688,
+        "erro": 24.9990477421688,
+        "erro_absoluto": 24.9990477421688
+      },
+      {
+        "title": "Superman Vol. 1: Before Truth (Superman by Gene Luen Yang #1)",
+        "category": "Sequential Art",
+        "preco_real": 11.89,
+        "preco_previsto": 36.88280759720565,
+        "erro": 24.992807597205648,
+        "erro_absoluto": 24.992807597205648
+      },
+      {
+        "title": "Unstuffed: Decluttering Your Home, Mind, and Soul",
+        "category": "Nonfiction",
+        "preco_real": 58.09,
+        "preco_previsto": 33.23359486477716,
+        "erro": -24.856405135222843,
+        "erro_absoluto": 24.856405135222843
+      },
+      {
+        "title": "A Clash of Kings (A Song of Ice and Fire #2)",
+        "category": "Add a comment",
+        "preco_real": 10.79,
+        "preco_previsto": 35.60844169138669,
+        "erro": 24.81844169138669,
+        "erro_absoluto": 24.81844169138669
+      },
+      {
+        "title": "Fruits Basket, Vol. 2 (Fruits Basket #2)",
+        "category": "Sequential Art",
+        "preco_real": 11.64,
+        "preco_previsto": 36.385318307705134,
+        "erro": 24.745318307705134,
+        "erro_absoluto": 24.745318307705134
+      },
+      {
+        "title": "Watchmen",
+        "category": "Add a comment",
+        "preco_real": 58.05,
+        "preco_previsto": 33.48009155187128,
+        "erro": -24.569908448128714,
+        "erro_absoluto": 24.569908448128714
+      },
+      {
+        "title": "Poems That Make Grown Women Cry",
+        "category": "Poetry",
+        "preco_real": 14.19,
+        "preco_previsto": 38.71101520547078,
+        "erro": 24.521015205470782,
+        "erro_absoluto": 24.521015205470782
+      },
+      {
+        "title": "The Man Who Mistook His Wife for a Hat and Other Clinical Tales",
+        "category": "Nonfiction",
+        "preco_real": 59.45,
+        "preco_previsto": 35.188407068503,
+        "erro": -24.261592931497006,
+        "erro_absoluto": 24.261592931497006
+      },
+      {
+        "title": "Reservations for Two",
+        "category": "Romance",
+        "preco_real": 11.1,
+        "preco_previsto": 35.13651293972152,
+        "erro": 24.03651293972152,
+        "erro_absoluto": 24.03651293972152
+      },
+      {
+        "title": "Harry Potter and the Chamber of Secrets (Harry Potter #2)",
+        "category": "Fantasy",
+        "preco_real": 14.74,
+        "preco_previsto": 38.77322269739922,
+        "erro": 24.033222697399218,
+        "erro_absoluto": 24.033222697399218
+      },
+      {
+        "title": "How to Speak Golf: An Illustrated Guide to Links Lingo",
+        "category": "Default",
+        "preco_real": 58.32,
+        "preco_previsto": 34.32182851124368,
+        "erro": -23.99817148875632,
+        "erro_absoluto": 23.99817148875632
+      },
+      {
+        "title": "Saga, Volume 2 (Saga (Collected Editions) #2)",
+        "category": "Sequential Art",
+        "preco_real": 11.75,
+        "preco_previsto": 35.72291929480044,
+        "erro": 23.97291929480044,
+        "erro_absoluto": 23.97291929480044
+      },
+      {
+        "title": "Last One Home (New Beginnings #1)",
+        "category": "Fiction",
+        "preco_real": 59.98,
+        "preco_previsto": 36.048580893882225,
+        "erro": -23.931419106117772,
+        "erro_absoluto": 23.931419106117772
+      },
+      {
+        "title": "Untitled Collection: Sabbath Poems 2014",
+        "category": "Poetry",
+        "preco_real": 14.27,
+        "preco_previsto": 38.14105616371819,
+        "erro": 23.87105616371819,
+        "erro_absoluto": 23.87105616371819
+      },
+      {
+        "title": "The Stand",
+        "category": "Horror",
+        "preco_real": 57.86,
+        "preco_previsto": 34.02676578666144,
+        "erro": -23.833234213338557,
+        "erro_absoluto": 23.833234213338557
+      },
+      {
+        "title": "I'll Give You the Sun",
+        "category": "Default",
+        "preco_real": 56.48,
+        "preco_previsto": 32.869327012039925,
+        "erro": -23.610672987960072,
+        "erro_absoluto": 23.610672987960072
+      },
+      {
+        "title": "The Improbability of Love",
+        "category": "Fiction",
+        "preco_real": 59.45,
+        "preco_previsto": 35.84810352158091,
+        "erro": -23.601896478419093,
+        "erro_absoluto": 23.601896478419093
+      },
+      {
+        "title": "The Gray Rhino: How to Recognize and Act on the Obvious Dangers We Ignore",
+        "category": "Add a comment",
+        "preco_real": 59.15,
+        "preco_previsto": 35.55136988447412,
+        "erro": -23.59863011552588,
+        "erro_absoluto": 23.59863011552588
+      },
+      {
+        "title": "Old School (Diary of a Wimpy Kid #10)",
+        "category": "Humor",
+        "preco_real": 11.83,
+        "preco_previsto": 35.412340260885024,
+        "erro": 23.582340260885026,
+        "erro_absoluto": 23.582340260885026
+      },
+      {
+        "title": "The Girl Who Kicked the Hornet's Nest (Millennium Trilogy #3)",
+        "category": "Add a comment",
+        "preco_real": 57.48,
+        "preco_previsto": 34.06225487566823,
+        "erro": -23.417745124331766,
+        "erro_absoluto": 23.417745124331766
+      },
+      {
+        "title": "H is for Hawk",
+        "category": "Nonfiction",
+        "preco_real": 57.42,
+        "preco_previsto": 34.24098578568545,
+        "erro": -23.17901421431455,
+        "erro_absoluto": 23.17901421431455
+      },
+      {
+        "title": "The Darkest Corners",
+        "category": "Young Adult",
+        "preco_real": 11.33,
+        "preco_previsto": 34.45430725519296,
+        "erro": 23.12430725519296,
+        "erro_absoluto": 23.12430725519296
+      },
+      {
+        "title": "The Sound Of Love",
+        "category": "Default",
+        "preco_real": 57.84,
+        "preco_previsto": 34.78506395230857,
+        "erro": -23.054936047691434,
+        "erro_absoluto": 23.054936047691434
+      },
+      {
+        "title": "The Sleep Revolution: Transforming Your Life, One Night at a Time",
+        "category": "Nonfiction",
+        "preco_real": 11.68,
+        "preco_previsto": 34.58953673553822,
+        "erro": 22.909536735538218,
+        "erro_absoluto": 22.909536735538218
+      },
+      {
+        "title": "Greek Mythic History",
+        "category": "Default",
+        "preco_real": 10.23,
+        "preco_previsto": 33.10144773932835,
+        "erro": 22.87144773932835,
+        "erro_absoluto": 22.87144773932835
+      },
+      {
+        "title": "Packing for Mars: The Curious Science of Life in the Void",
+        "category": "Default",
+        "preco_real": 56.68,
+        "preco_previsto": 33.94538581871841,
+        "erro": -22.734614181281593,
+        "erro_absoluto": 22.734614181281593
+      },
+      {
+        "title": "The Electric Pencil: Drawings from Inside State Hospital No. 3",
+        "category": "Nonfiction",
+        "preco_real": 56.06,
+        "preco_previsto": 33.33359581253235,
+        "erro": -22.72640418746765,
+        "erro_absoluto": 22.72640418746765
+      },
+      {
+        "title": "Are We Smart Enough to Know How Smart Animals Are?",
+        "category": "Nonfiction",
+        "preco_real": 56.58,
+        "preco_previsto": 34.08537011262234,
+        "erro": -22.494629887377656,
+        "erro_absoluto": 22.494629887377656
+      },
+      {
+        "title": "The Wicked + The Divine, Vol. 3: Commercial Suicide (The Wicked + The Divine)",
+        "category": "Sequential Art",
+        "preco_real": 14.41,
+        "preco_previsto": 36.89336414379673,
+        "erro": 22.48336414379673,
+        "erro_absoluto": 22.48336414379673
+      },
+      {
+        "title": "Fun Home: A Family Tragicomic",
+        "category": "Add a comment",
+        "preco_real": 56.59,
+        "preco_previsto": 34.122214317945414,
+        "erro": -22.46778568205459,
+        "erro_absoluto": 22.46778568205459
+      },
+      {
+        "title": "The Girl on the Train",
+        "category": "Default",
+        "preco_real": 55.02,
+        "preco_previsto": 32.97013734325766,
+        "erro": -22.04986265674234,
+        "erro_absoluto": 22.04986265674234
+      },
+      {
+        "title": "Naturally Lean: 125 Nourishing Gluten-Free, Plant-Based Recipes--All Under 300 Calories",
+        "category": "Food and Drink",
+        "preco_real": 11.38,
+        "preco_previsto": 33.26688094060729,
+        "erro": 21.886880940607284,
+        "erro_absoluto": 21.886880940607284
+      },
+      {
+        "title": "El Deafo",
+        "category": "Sequential Art",
+        "preco_real": 57.62,
+        "preco_previsto": 35.74246162939471,
+        "erro": -21.877538370605286,
+        "erro_absoluto": 21.877538370605286
+      },
+      {
+        "title": "It Didn't Start with You: How Inherited Family Trauma Shapes Who We Are and How to End the Cycle",
+        "category": "Psychology",
+        "preco_real": 56.27,
+        "preco_previsto": 34.42091175353796,
+        "erro": -21.849088246462046,
+        "erro_absoluto": 21.849088246462046
+      },
+      {
+        "title": "A Piece of Sky, a Grain of Rice: A Memoir in Four Meditations",
+        "category": "Default",
+        "preco_real": 56.76,
+        "preco_previsto": 35.04823454584631,
+        "erro": -21.711765454153685,
+        "erro_absoluto": 21.711765454153685
+      },
+      {
+        "title": "Miss Peregrineâs Home for Peculiar Children (Miss Peregrineâs Peculiar Children #1)",
+        "category": "Default",
+        "preco_real": 10.76,
+        "preco_previsto": 32.43182362974932,
+        "erro": 21.67182362974932,
+        "erro_absoluto": 21.67182362974932
+      },
+      {
+        "title": "The Perks of Being a Wallflower",
+        "category": "Default",
+        "preco_real": 55.02,
+        "preco_previsto": 33.35933358874062,
+        "erro": -21.660666411259385,
+        "erro_absoluto": 21.660666411259385
+      },
+      {
+        "title": "The Children",
+        "category": "Add a comment",
+        "preco_real": 11.88,
+        "preco_previsto": 33.49723303185013,
+        "erro": 21.617233031850127,
+        "erro_absoluto": 21.617233031850127
+      },
+      {
+        "title": "Mothering Sunday",
+        "category": "Fiction",
+        "preco_real": 13.34,
+        "preco_previsto": 34.9519511274317,
+        "erro": 21.6119511274317,
+        "erro_absoluto": 21.6119511274317
+      },
+      {
+        "title": "Roller Girl",
+        "category": "Sequential Art",
+        "preco_real": 14.1,
+        "preco_previsto": 35.64183857213182,
+        "erro": 21.541838572131816,
+        "erro_absoluto": 21.541838572131816
+      },
+      {
+        "title": "The Hound of the Baskervilles (Sherlock Holmes #5)",
+        "category": "Classics",
+        "preco_real": 14.82,
+        "preco_previsto": 36.35300987061752,
+        "erro": 21.53300987061752,
+        "erro_absoluto": 21.53300987061752
+      },
+      {
+        "title": "New Moon (Twilight #2)",
+        "category": "Young Adult",
+        "preco_real": 12.86,
+        "preco_previsto": 34.3695505530889,
+        "erro": 21.5095505530889,
+        "erro_absoluto": 21.5095505530889
+      },
+      {
+        "title": "The Last Mile (Amos Decker #2)",
+        "category": "Mystery",
+        "preco_real": 54.21,
+        "preco_previsto": 32.749130259842616,
+        "erro": -21.460869740157385,
+        "erro_absoluto": 21.460869740157385
+      },
+      {
+        "title": "Animal Farm",
+        "category": "Classics",
+        "preco_real": 57.22,
+        "preco_previsto": 35.86092128205802,
+        "erro": -21.359078717941976,
+        "erro_absoluto": 21.359078717941976
+      },
+      {
+        "title": "The Dinner Party",
+        "category": "Fiction",
+        "preco_real": 56.54,
+        "preco_previsto": 35.286788799347846,
+        "erro": -21.253211200652153,
+        "erro_absoluto": 21.253211200652153
+      },
+      {
+        "title": "A Gentleman's Position (Society of Gentlemen #3)",
+        "category": "Romance",
+        "preco_real": 14.75,
+        "preco_previsto": 35.91385931175891,
+        "erro": 21.163859311758912,
+        "erro_absoluto": 21.163859311758912
+      },
+      {
+        "title": "Ajin: Demi-Human, Volume 1 (Ajin: Demi-Human #1)",
+        "category": "Sequential Art",
+        "preco_real": 57.06,
+        "preco_previsto": 35.916113039944754,
+        "erro": -21.143886960055248,
+        "erro_absoluto": 21.143886960055248
+      },
+      {
+        "title": "The Suffragettes (Little Black Classics, #96)",
+        "category": "Nonfiction",
+        "preco_real": 11.89,
+        "preco_previsto": 33.02235751974818,
+        "erro": 21.132357519748176,
+        "erro_absoluto": 21.132357519748176
+      },
+      {
+        "title": "Eight Hundred Grapes",
+        "category": "Fiction",
+        "preco_real": 14.39,
+        "preco_previsto": 35.50059167846689,
+        "erro": 21.11059167846689,
+        "erro_absoluto": 21.11059167846689
+      },
+      {
+        "title": "House of Leaves",
+        "category": "Horror",
+        "preco_real": 54.89,
+        "preco_previsto": 33.82040533053408,
+        "erro": -21.06959466946592,
+        "erro_absoluto": 21.06959466946592
+      },
+      {
+        "title": "Old Records Never Die: One Man's Quest for His Vinyl and His Past",
+        "category": "Music",
+        "preco_real": 55.66,
+        "preco_previsto": 34.67657588646316,
+        "erro": -20.983424113536834,
+        "erro_absoluto": 20.983424113536834
+      },
+      {
+        "title": "Future Shock (Future Shock #1)",
+        "category": "Young Adult",
+        "preco_real": 55.65,
+        "preco_previsto": 34.66849014955148,
+        "erro": -20.981509850448518,
+        "erro_absoluto": 20.981509850448518
+      },
+      {
+        "title": "The Alien Club",
+        "category": "Young Adult",
+        "preco_real": 54.4,
+        "preco_previsto": 33.53369973874504,
+        "erro": -20.866300261254956,
+        "erro_absoluto": 20.866300261254956
+      },
+      {
+        "title": "Booked",
+        "category": "Poetry",
+        "preco_real": 17.49,
+        "preco_previsto": 38.320660638404455,
+        "erro": 20.830660638404456,
+        "erro_absoluto": 20.830660638404456
+      },
+      {
+        "title": "Thirteen Reasons Why",
+        "category": "Default",
+        "preco_real": 52.72,
+        "preco_previsto": 32.06205939561694,
+        "erro": -20.657940604383057,
+        "erro_absoluto": 20.657940604383057
+      },
+      {
+        "title": "Hyperbole and a Half: Unfortunate Situations, Flawed Coping Mechanisms, Mayhem, and Other Things That Happened",
+        "category": "Humor",
+        "preco_real": 14.75,
+        "preco_previsto": 35.38263460590464,
+        "erro": 20.63263460590464,
+        "erro_absoluto": 20.63263460590464
+      },
+      {
+        "title": "Outcast, Vol. 1: A Darkness Surrounds Him (Outcast #1)",
+        "category": "Sequential Art",
+        "preco_real": 15.44,
+        "preco_previsto": 35.981893052297565,
+        "erro": 20.541893052297567,
+        "erro_absoluto": 20.541893052297567
+      },
+      {
+        "title": "The Giver (The Giver Quartet #1)",
+        "category": "Default",
+        "preco_real": 12.3,
+        "preco_previsto": 32.837011592750585,
+        "erro": 20.537011592750584,
+        "erro_absoluto": 20.537011592750584
+      },
+      {
+        "title": "Little Red",
+        "category": "Childrens",
+        "preco_real": 13.47,
+        "preco_previsto": 33.95967837672635,
+        "erro": 20.489678376726353,
+        "erro_absoluto": 20.489678376726353
+      },
+      {
+        "title": "The Light of the Fireflies",
+        "category": "Add a comment",
+        "preco_real": 54.43,
+        "preco_previsto": 34.51208387886918,
+        "erro": -19.917916121130823,
+        "erro_absoluto": 19.917916121130823
+      },
+      {
+        "title": "Approval Junkie: Adventures in Caring Too Much",
+        "category": "Autobiography",
+        "preco_real": 58.81,
+        "preco_previsto": 38.9321998258455,
+        "erro": -19.8778001741545,
+        "erro_absoluto": 19.8778001741545
+      },
+      {
+        "title": "Judo: Seven Steps to Black Belt (an Introductory Guide for Beginners)",
+        "category": "Add a comment",
+        "preco_real": 53.9,
+        "preco_previsto": 34.09855209615718,
+        "erro": -19.80144790384282,
+        "erro_absoluto": 19.80144790384282
+      },
+      {
+        "title": "Chronicles, Vol. 1",
+        "category": "Music",
+        "preco_real": 52.6,
+        "preco_previsto": 32.846429989045525,
+        "erro": -19.753570010954476,
+        "erro_absoluto": 19.753570010954476
+      },
+      {
+        "title": "Outliers: The Story of Success",
+        "category": "Nonfiction",
+        "preco_real": 14.16,
+        "preco_previsto": 33.79165584223826,
+        "erro": 19.631655842238256,
+        "erro_absoluto": 19.631655842238256
+      },
+      {
+        "title": "Louisa: The Extraordinary Life of Mrs. Adams",
+        "category": "Biography",
+        "preco_real": 16.85,
+        "preco_previsto": 36.44882958877186,
+        "erro": 19.598829588771856,
+        "erro_absoluto": 19.598829588771856
+      },
+      {
+        "title": "Mama Tried: Traditional Italian Cooking for the Screwed, Crude, Vegan, and Tattooed",
+        "category": "Food and Drink",
+        "preco_real": 14.02,
+        "preco_previsto": 33.607679994274974,
+        "erro": 19.587679994274975,
+        "erro_absoluto": 19.587679994274975
+      },
+      {
+        "title": "Night (The Night Trilogy #1)",
+        "category": "Nonfiction",
+        "preco_real": 13.51,
+        "preco_previsto": 33.03446821722039,
+        "erro": 19.524468217220395,
+        "erro_absoluto": 19.524468217220395
+      },
+      {
+        "title": "Girl Online On Tour (Girl Online #2)",
+        "category": "Young Adult",
+        "preco_real": 53.47,
+        "preco_previsto": 34.115230397068025,
+        "erro": -19.354769602931974,
+        "erro_absoluto": 19.354769602931974
+      },
+      {
+        "title": "Myriad (Prentor #1)",
+        "category": "Fantasy",
+        "preco_real": 58.75,
+        "preco_previsto": 39.40220256106014,
+        "erro": -19.347797438939857,
+        "erro_absoluto": 19.347797438939857
+      },
+      {
+        "title": "Disrupted: My Misadventure in the Start-Up Bubble",
+        "category": "Nonfiction",
+        "preco_real": 15.28,
+        "preco_previsto": 34.23312845364807,
+        "erro": 18.95312845364807,
+        "erro_absoluto": 18.95312845364807
+      },
+      {
+        "title": "Equal Is Unfair: America's Misguided Fight Against Income Inequality",
+        "category": "Politics",
+        "preco_real": 56.86,
+        "preco_previsto": 38.1231795558742,
+        "erro": -18.736820444125797,
+        "erro_absoluto": 18.736820444125797
+      },
+      {
+        "title": "Playing with Fire",
+        "category": "Mystery",
+        "preco_real": 13.71,
+        "preco_previsto": 32.40269206190606,
+        "erro": 18.692692061906058,
+        "erro_absoluto": 18.692692061906058
+      },
+      {
+        "title": "In Her Wake",
+        "category": "Thriller",
+        "preco_real": 12.84,
+        "preco_previsto": 31.507582367825147,
+        "erro": 18.667582367825148,
+        "erro_absoluto": 18.667582367825148
+      },
+      {
+        "title": "Angels & Demons (Robert Langdon #1)",
+        "category": "Default",
+        "preco_real": 51.48,
+        "preco_previsto": 33.122385820525345,
+        "erro": -18.357614179474652,
+        "erro_absoluto": 18.357614179474652
+      },
+      {
+        "title": "Vogue Colors A to Z: A Fashion Coloring Book",
+        "category": "Default",
+        "preco_real": 52.35,
+        "preco_previsto": 34.15152828271206,
+        "erro": -18.198471717287944,
+        "erro_absoluto": 18.198471717287944
+      },
+      {
+        "title": "The Power of Habit: Why We Do What We Do in Life and Business",
+        "category": "Default",
+        "preco_real": 16.88,
+        "preco_previsto": 35.07531437958228,
+        "erro": 18.195314379582282,
+        "erro_absoluto": 18.195314379582282
+      },
+      {
+        "title": "Heaven is for Real: A Little Boy's Astounding Story of His Trip to Heaven and Back",
+        "category": "Default",
+        "preco_real": 52.86,
+        "preco_previsto": 34.73070021263721,
+        "erro": -18.12929978736279,
+        "erro_absoluto": 18.12929978736279
+      },
+      {
+        "title": "The Life-Changing Magic of Tidying Up: The Japanese Art of Decluttering and Organizing",
+        "category": "Nonfiction",
+        "preco_real": 16.77,
+        "preco_previsto": 34.82506955144384,
+        "erro": 18.05506955144384,
+        "erro_absoluto": 18.05506955144384
+      },
+      {
+        "title": "Amatus",
+        "category": "Default",
+        "preco_real": 50.54,
+        "preco_previsto": 32.74077925371622,
+        "erro": -17.79922074628378,
+        "erro_absoluto": 17.79922074628378
+      },
+      {
+        "title": "Masks and Shadows",
+        "category": "Fantasy",
+        "preco_real": 56.4,
+        "preco_previsto": 38.70160564074749,
+        "erro": -17.69839435925251,
+        "erro_absoluto": 17.69839435925251
+      },
+      {
+        "title": "The Raven Boys (The Raven Cycle #1)",
+        "category": "Fantasy",
+        "preco_real": 57.74,
+        "preco_previsto": 40.12352045970819,
+        "erro": -17.616479540291813,
+        "erro_absoluto": 17.616479540291813
+      },
+      {
+        "title": "Bossypants",
+        "category": "Default",
+        "preco_real": 49.46,
+        "preco_previsto": 32.046509652524335,
+        "erro": -17.413490347475665,
+        "erro_absoluto": 17.413490347475665
+      },
+      {
+        "title": "In Cold Blood",
+        "category": "Nonfiction",
+        "preco_real": 49.98,
+        "preco_previsto": 32.69090868346046,
+        "erro": -17.28909131653954,
+        "erro_absoluto": 17.28909131653954
+      },
+      {
+        "title": "Holidays on Ice",
+        "category": "Humor",
+        "preco_real": 51.07,
+        "preco_previsto": 33.932808288589456,
+        "erro": -17.137191711410544,
+        "erro_absoluto": 17.137191711410544
+      },
+      {
+        "title": "Peak: Secrets from the New Science of Expertise",
+        "category": "Science",
+        "preco_real": 16.28,
+        "preco_previsto": 33.36064176267468,
+        "erro": 17.08064176267468,
+        "erro_absoluto": 17.08064176267468
+      },
+      {
+        "title": "Danganronpa Volume 1",
+        "category": "Sequential Art",
+        "preco_real": 51.99,
+        "preco_previsto": 35.33247935991033,
+        "erro": -16.657520640089672,
+        "erro_absoluto": 16.657520640089672
+      },
+      {
+        "title": "Ready Player One",
+        "category": "Science Fiction",
+        "preco_real": 19.07,
+        "preco_previsto": 35.55319239222402,
+        "erro": 16.48319239222402,
+        "erro_absoluto": 16.48319239222402
+      },
+      {
+        "title": "Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)",
+        "category": "Sequential Art",
+        "preco_real": 52.29,
+        "preco_previsto": 35.927393071196704,
+        "erro": -16.362606928803295,
+        "erro_absoluto": 16.362606928803295
+      },
+      {
+        "title": "A Hero's Curse (The Unseen Chronicles #1)",
+        "category": "Add a comment",
+        "preco_real": 50.49,
+        "preco_previsto": 34.1407575923938,
+        "erro": -16.349242407606205,
+        "erro_absoluto": 16.349242407606205
+      },
+      {
+        "title": "Nightstruck: A Novel",
+        "category": "Young Adult",
+        "preco_real": 50.35,
+        "preco_previsto": 34.10923691851969,
+        "erro": -16.24076308148031,
+        "erro_absoluto": 16.24076308148031
+      },
+      {
+        "title": "Troublemaker: Surviving Hollywood and Scientology",
+        "category": "Default",
+        "preco_real": 48.39,
+        "preco_previsto": 32.30182775137411,
+        "erro": -16.088172248625888,
+        "erro_absoluto": 16.088172248625888
+      },
+      {
+        "title": "Spilled Milk: Based on a True Story",
+        "category": "Nonfiction",
+        "preco_real": 49.51,
+        "preco_previsto": 33.43992963994451,
+        "erro": -16.07007036005549,
+        "erro_absoluto": 16.07007036005549
+      },
+      {
+        "title": "Rogue Lawyer (Rogue Lawyer #1)",
+        "category": "Add a comment",
+        "preco_real": 50.11,
+        "preco_previsto": 34.066837445909286,
+        "erro": -16.043162554090713,
+        "erro_absoluto": 16.043162554090713
+      },
+      {
+        "title": "Once Was a Time",
+        "category": "Childrens",
+        "preco_real": 18.28,
+        "preco_previsto": 34.24734442128436,
+        "erro": 15.96734442128436,
+        "erro_absoluto": 15.96734442128436
+      },
+      {
+        "title": "The Genius of Birds",
+        "category": "Nonfiction",
+        "preco_real": 17.24,
+        "preco_previsto": 33.09074471136894,
+        "erro": 15.850744711368943,
+        "erro_absoluto": 15.850744711368943
+      },
+      {
+        "title": "Fruits Basket, Vol. 7 (Fruits Basket #7)",
+        "category": "Sequential Art",
+        "preco_real": 19.57,
+        "preco_previsto": 35.31723820791073,
+        "erro": 15.747238207910726,
+        "erro_absoluto": 15.747238207910726
+      },
+      {
+        "title": "The Road to Little Dribbling: Adventures of an American in Britain (Notes From a Small Island #2)",
+        "category": "Travel",
+        "preco_real": 23.21,
+        "preco_previsto": 38.8423137948805,
+        "erro": 15.632313794880503,
+        "erro_absoluto": 15.632313794880503
+      },
+      {
+        "title": "Redeeming Love",
+        "category": "Christian Fiction",
+        "preco_real": 20.47,
+        "preco_previsto": 35.90092888510301,
+        "erro": 15.430928885103015,
+        "erro_absoluto": 15.430928885103015
+      },
+      {
+        "title": "The Torch Is Passed: A Harding Family Story",
+        "category": "Add a comment",
+        "preco_real": 19.09,
+        "preco_previsto": 34.345219277488866,
+        "erro": 15.255219277488866,
+        "erro_absoluto": 15.255219277488866
+      },
+      {
+        "title": "Lumberjanes Vol. 3: A Terrible Plan (Lumberjanes #9-12)",
+        "category": "Sequential Art",
+        "preco_real": 19.92,
+        "preco_previsto": 35.134170413431434,
+        "erro": 15.214170413431432,
+        "erro_absoluto": 15.214170413431432
+      },
+      {
+        "title": "Brain on Fire: My Month of Madness",
+        "category": "Nonfiction",
+        "preco_real": 49.32,
+        "preco_previsto": 34.275541745716,
+        "erro": -15.044458254284002,
+        "erro_absoluto": 15.044458254284002
+      },
+      {
+        "title": "Unbound: How Eight Technologies Made Us Human, Transformed Society, and Brought Our World to the Brink",
+        "category": "History",
+        "preco_real": 25.52,
+        "preco_previsto": 40.55431482559426,
+        "erro": 15.034314825594262,
+        "erro_absoluto": 15.034314825594262
+      },
+      {
+        "title": "If I Gave You God's Phone Number....: Searching for Spirituality in America",
+        "category": "Spirituality",
+        "preco_real": 20.91,
+        "preco_previsto": 35.88489143486678,
+        "erro": 14.97489143486678,
+        "erro_absoluto": 14.97489143486678
+      },
+      {
+        "title": "A Time of Torment (Charlie Parker #14)",
+        "category": "Mystery",
+        "preco_real": 48.35,
+        "preco_previsto": 33.46831747554108,
+        "erro": -14.881682524458924,
+        "erro_absoluto": 14.881682524458924
+      },
+      {
+        "title": "A Murder in Time",
+        "category": "Mystery",
+        "preco_real": 16.64,
+        "preco_previsto": 31.44375953707079,
+        "erro": 14.803759537070789,
+        "erro_absoluto": 14.803759537070789
+      },
+      {
+        "title": "Rat Queens, Vol. 3: Demons (Rat Queens (Collected Editions) #11-15)",
+        "category": "Sequential Art",
+        "preco_real": 50.4,
+        "preco_previsto": 35.62552127257822,
+        "erro": -14.77447872742178,
+        "erro_absoluto": 14.77447872742178
+      },
+      {
+        "title": "Tuesday Nights in 1980",
+        "category": "Fiction",
+        "preco_real": 21.04,
+        "preco_previsto": 35.49099404657108,
+        "erro": 14.450994046571083,
+        "erro_absoluto": 14.450994046571083
+      },
+      {
+        "title": "Anonymous",
+        "category": "Default",
+        "preco_real": 46.82,
+        "preco_previsto": 32.53215977295786,
+        "erro": -14.287840227042139,
+        "erro_absoluto": 14.287840227042139
+      },
+      {
+        "title": "Something Borrowed (Darcy & Rachel #1)",
+        "category": "Womens Fiction",
+        "preco_real": 48.96,
+        "preco_previsto": 34.82048618015739,
+        "erro": -14.139513819842612,
+        "erro_absoluto": 14.139513819842612
+      },
+      {
+        "title": "Grey (Fifty Shades #4)",
+        "category": "Womens Fiction",
+        "preco_real": 48.49,
+        "preco_previsto": 34.361985768319904,
+        "erro": -14.128014231680098,
+        "erro_absoluto": 14.128014231680098
+      },
+      {
+        "title": "Saga, Volume 6 (Saga (Collected Editions) #6)",
+        "category": "Fantasy",
+        "preco_real": 25.02,
+        "preco_previsto": 39.14346918352174,
+        "erro": 14.123469183521738,
+        "erro_absoluto": 14.123469183521738
+      },
+      {
+        "title": "Close to You",
+        "category": "Christian Fiction",
+        "preco_real": 49.46,
+        "preco_previsto": 35.35760823773289,
+        "erro": -14.10239176226711,
+        "erro_absoluto": 14.10239176226711
+      },
+      {
+        "title": "Stars Above (The Lunar Chronicles #4.5)",
+        "category": "Young Adult",
+        "preco_real": 48.05,
+        "preco_previsto": 33.98337786178514,
+        "erro": -14.06662213821486,
+        "erro_absoluto": 14.06662213821486
+      },
+      {
+        "title": "Sleeping Giants (Themis Files #1)",
+        "category": "Science Fiction",
+        "preco_real": 48.74,
+        "preco_previsto": 34.88654468499187,
+        "erro": -13.853455315008134,
+        "erro_absoluto": 13.853455315008134
+      },
+      {
+        "title": "Shopaholic & Baby (Shopaholic #5)",
+        "category": "Default",
+        "preco_real": 46.45,
+        "preco_previsto": 32.699448618088766,
+        "erro": -13.750551381911237,
+        "erro_absoluto": 13.750551381911237
+      },
+      {
+        "title": "One Second (Seven #7)",
+        "category": "Fantasy",
+        "preco_real": 52.94,
+        "preco_previsto": 39.31262635933241,
+        "erro": -13.627373640667585,
+        "erro_absoluto": 13.627373640667585
+      },
+      {
+        "title": "Eclipse (Twilight #3)",
+        "category": "Default",
+        "preco_real": 18.74,
+        "preco_previsto": 32.327931083614395,
+        "erro": 13.587931083614396,
+        "erro_absoluto": 13.587931083614396
+      },
+      {
+        "title": "Needful Things",
+        "category": "Horror",
+        "preco_real": 47.51,
+        "preco_previsto": 34.09854107863088,
+        "erro": -13.411458921369118,
+        "erro_absoluto": 13.411458921369118
+      },
+      {
+        "title": "John Vassos: Industrial Design for Modern Life",
+        "category": "Default",
+        "preco_real": 20.22,
+        "preco_previsto": 33.57181422123527,
+        "erro": 13.351814221235273,
+        "erro_absoluto": 13.351814221235273
+      },
+      {
+        "title": "Cravings: Recipes for What You Want to Eat",
+        "category": "Food and Drink",
+        "preco_real": 20.5,
+        "preco_previsto": 33.64446082227453,
+        "erro": 13.144460822274532,
+        "erro_absoluto": 13.144460822274532
+      },
+      {
+        "title": "The Cuckoo's Calling (Cormoran Strike #1)",
+        "category": "Mystery",
+        "preco_real": 19.21,
+        "preco_previsto": 32.32020125855015,
+        "erro": 13.110201258550148,
+        "erro_absoluto": 13.110201258550148
+      },
+      {
+        "title": "The Hitchhiker's Guide to the Galaxy (Hitchhiker's Guide to the Galaxy #1)",
+        "category": "Add a comment",
+        "preco_real": 47.8,
+        "preco_previsto": 34.76785791583602,
+        "erro": -13.03214208416398,
+        "erro_absoluto": 13.03214208416398
+      },
+      {
+        "title": "Rework",
+        "category": "Business",
+        "preco_real": 44.88,
+        "preco_previsto": 31.8675607214262,
+        "erro": -13.012439278573801,
+        "erro_absoluto": 13.012439278573801
+      },
+      {
+        "title": "Feathers: Displays of Brilliant Plumage",
+        "category": "Art",
+        "preco_real": 49.05,
+        "preco_previsto": 36.159610406066214,
+        "erro": -12.890389593933783,
+        "erro_absoluto": 12.890389593933783
+      },
+      {
+        "title": "Wild: From Lost to Found on the Pacific Crest Trail",
+        "category": "Default",
+        "preco_real": 46.02,
+        "preco_previsto": 33.162610622987344,
+        "erro": -12.857389377012659,
+        "erro_absoluto": 12.857389377012659
+      },
+      {
+        "title": "Will Grayson, Will Grayson (Will Grayson, Will Grayson)",
+        "category": "Young Adult",
+        "preco_real": 47.31,
+        "preco_previsto": 34.5323459397926,
+        "erro": -12.777654060207404,
+        "erro_absoluto": 12.777654060207404
+      },
+      {
+        "title": "Sugar Rush (Offensive Line #2)",
+        "category": "Sports and Games",
+        "preco_real": 24.42,
+        "preco_previsto": 37.17722325559188,
+        "erro": 12.757223255591882,
+        "erro_absoluto": 12.757223255591882
+      },
+      {
+        "title": "Blink: The Power of Thinking Without Thinking",
+        "category": "Nonfiction",
+        "preco_real": 21.74,
+        "preco_previsto": 34.31355786837744,
+        "erro": 12.573557868377438,
+        "erro_absoluto": 12.573557868377438
+      },
+      {
+        "title": "Follow You Home",
+        "category": "Horror",
+        "preco_real": 21.36,
+        "preco_previsto": 33.495752806800915,
+        "erro": 12.135752806800916,
+        "erro_absoluto": 12.135752806800916
+      },
+      {
+        "title": "The Maze Runner (The Maze Runner #1)",
+        "category": "Default",
+        "preco_real": 20.93,
+        "preco_previsto": 33.00163673535952,
+        "erro": 12.071636735359519,
+        "erro_absoluto": 12.071636735359519
+      },
+      {
+        "title": "Three-Martini Lunch",
+        "category": "Fiction",
+        "preco_real": 23.21,
+        "preco_previsto": 35.24328877559022,
+        "erro": 12.033288775590222,
+        "erro_absoluto": 12.033288775590222
+      },
+      {
+        "title": "Avatar: The Last Airbender: Smoke and Shadow, Part 3 (Smoke and Shadow #3)",
+        "category": "Fantasy",
+        "preco_real": 28.09,
+        "preco_previsto": 40.04034796084777,
+        "erro": 11.950347960847768,
+        "erro_absoluto": 11.950347960847768
+      },
+      {
+        "title": "Private Paris (Private #10)",
+        "category": "Fiction",
+        "preco_real": 47.61,
+        "preco_previsto": 35.797036994317395,
+        "erro": -11.812963005682604,
+        "erro_absoluto": 11.812963005682604
+      },
+      {
+        "title": "Twenty Yawns",
+        "category": "Childrens",
+        "preco_real": 22.08,
+        "preco_previsto": 33.66013995478965,
+        "erro": 11.58013995478965,
+        "erro_absoluto": 11.58013995478965
+      },
+      {
+        "title": "Secrets and Lace (Fatal Hearts #1)",
+        "category": "Default",
+        "preco_real": 20.27,
+        "preco_previsto": 31.85013444083618,
+        "erro": 11.58013444083618,
+        "erro_absoluto": 11.58013444083618
+      },
+      {
+        "title": "An Unquiet Mind: A Memoir of Moods and Madness",
+        "category": "Psychology",
+        "preco_real": 21.3,
+        "preco_previsto": 32.763216759145664,
+        "erro": 11.463216759145663,
+        "erro_absoluto": 11.463216759145663
+      },
+      {
+        "title": "Talking to Girls About Duran Duran: One Young Man's Quest for True Love and a Cooler Haircut",
+        "category": "Nonfiction",
+        "preco_real": 25.15,
+        "preco_previsto": 36.45163806559879,
+        "erro": 11.301638065598794,
+        "erro_absoluto": 11.301638065598794
+      },
+      {
+        "title": "Living Leadership by Insight: A Good Leader Achieves, a Great Leader Builds Monuments",
+        "category": "Default",
+        "preco_real": 46.91,
+        "preco_previsto": 35.698058931576874,
+        "erro": -11.211941068423123,
+        "erro_absoluto": 11.211941068423123
+      },
+      {
+        "title": "Wildlife of New York: A Five-Borough Coloring Book",
+        "category": "Default",
+        "preco_real": 22.14,
+        "preco_previsto": 33.11039476049885,
+        "erro": 10.970394760498849,
+        "erro_absoluto": 10.970394760498849
+      },
+      {
+        "title": "Red Dragon (Hannibal Lecter #1)",
+        "category": "Horror",
+        "preco_real": 23.37,
+        "preco_previsto": 34.25906241520715,
+        "erro": 10.889062415207146,
+        "erro_absoluto": 10.889062415207146
+      },
+      {
+        "title": "Harry Potter and the Prisoner of Azkaban (Harry Potter #3)",
+        "category": "Young Adult",
+        "preco_real": 24.17,
+        "preco_previsto": 35.055912744365266,
+        "erro": 10.885912744365264,
+        "erro_absoluto": 10.885912744365264
+      },
+      {
+        "title": "Letter to a Christian Nation",
+        "category": "Nonfiction",
+        "preco_real": 22.2,
+        "preco_previsto": 32.99633943209735,
+        "erro": 10.796339432097351,
+        "erro_absoluto": 10.796339432097351
+      },
+      {
+        "title": "America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana",
+        "category": "Default",
+        "preco_real": 22.5,
+        "preco_previsto": 33.24844329586742,
+        "erro": 10.748443295867418,
+        "erro_absoluto": 10.748443295867418
+      },
+      {
+        "title": "Online Marketing for Busy Authors: A Step-By-Step Guide",
+        "category": "Self Help",
+        "preco_real": 46.35,
+        "preco_previsto": 35.78484887067699,
+        "erro": -10.565151129323013,
+        "erro_absoluto": 10.565151129323013
+      },
+      {
+        "title": "A World of Flavor: Your Gluten Free Passport",
+        "category": "Default",
+        "preco_real": 42.95,
+        "preco_previsto": 32.99367364983001,
+        "erro": -9.956326350169995,
+        "erro_absoluto": 9.956326350169995
+      },
+      {
+        "title": "The Year of Magical Thinking",
+        "category": "Nonfiction",
+        "preco_real": 43.04,
+        "preco_previsto": 33.212257996839,
+        "erro": -9.827742003161,
+        "erro_absoluto": 9.827742003161
+      },
+      {
+        "title": "Grumbles",
+        "category": "Default",
+        "preco_real": 22.16,
+        "preco_previsto": 31.920683675065085,
+        "erro": 9.760683675065085,
+        "erro_absoluto": 9.760683675065085
+      },
+      {
+        "title": "The Devil Wears Prada (The Devil Wears Prada #1)",
+        "category": "Womens Fiction",
+        "preco_real": 44.29,
+        "preco_previsto": 34.64808967499507,
+        "erro": -9.641910325004929,
+        "erro_absoluto": 9.641910325004929
+      },
+      {
+        "title": "Harry Potter and the Deathly Hallows (Harry Potter #7)",
+        "category": "Default",
+        "preco_real": 23.32,
+        "preco_previsto": 32.9106615599087,
+        "erro": 9.590661559908696,
+        "erro_absoluto": 9.590661559908696
+      },
+      {
+        "title": "Take Me with You",
+        "category": "Fiction",
+        "preco_real": 45.21,
+        "preco_previsto": 35.69575322952409,
+        "erro": -9.514246770475914,
+        "erro_absoluto": 9.514246770475914
+      },
+      {
+        "title": "Unreasonable Hope: Finding Faith in the God Who Brings Purpose to Your Pain",
+        "category": "Spirituality",
+        "preco_real": 46.33,
+        "preco_previsto": 36.88681966732768,
+        "erro": -9.44318033267232,
+        "erro_absoluto": 9.44318033267232
+      },
+      {
+        "title": "The Long Haul (Diary of a Wimpy Kid #9)",
+        "category": "Humor",
+        "preco_real": 44.07,
+        "preco_previsto": 34.627451066733656,
+        "erro": -9.442548933266345,
+        "erro_absoluto": 9.442548933266345
+      },
+      {
+        "title": "A Storm of Swords (A Song of Ice and Fire #3)",
+        "category": "Fantasy",
+        "preco_real": 31.22,
+        "preco_previsto": 40.64220406806997,
+        "erro": 9.422204068069973,
+        "erro_absoluto": 9.422204068069973
+      },
+      {
+        "title": "Harry Potter and the Half-Blood Prince (Harry Potter #6)",
+        "category": "Fantasy",
+        "preco_real": 48.75,
+        "preco_previsto": 39.453576513667215,
+        "erro": -9.296423486332785,
+        "erro_absoluto": 9.296423486332785
+      },
+      {
+        "title": "Twenties Girl",
+        "category": "Womens Fiction",
+        "preco_real": 42.8,
+        "preco_previsto": 33.642051976474,
+        "erro": -9.157948023525996,
+        "erro_absoluto": 9.157948023525996
+      },
+      {
+        "title": "Island of Dragons (Unwanteds #7)",
+        "category": "Fantasy",
+        "preco_real": 29.65,
+        "preco_previsto": 38.633051402264734,
+        "erro": 8.983051402264735,
+        "erro_absoluto": 8.983051402264735
+      },
+      {
+        "title": "Dress Your Family in Corduroy and Denim",
+        "category": "Humor",
+        "preco_real": 43.68,
+        "preco_previsto": 34.780278736871104,
+        "erro": -8.899721263128896,
+        "erro_absoluto": 8.899721263128896
+      },
+      {
+        "title": "Harry Potter and the Order of the Phoenix (Harry Potter #5)",
+        "category": "Fantasy",
+        "preco_real": 31.63,
+        "preco_previsto": 40.52593211680406,
+        "erro": 8.895932116804058,
+        "erro_absoluto": 8.895932116804058
+      },
+      {
+        "title": "Unseen City: The Majesty of Pigeons, the Discreet Charm of Snails & Other Wonders of the Urban Wilderness",
+        "category": "Nonfiction",
+        "preco_real": 44.18,
+        "preco_previsto": 35.30897647243477,
+        "erro": -8.871023527565228,
+        "erro_absoluto": 8.871023527565228
+      },
+      {
+        "title": "Tracing Numbers on a Train",
+        "category": "Default",
+        "preco_real": 41.6,
+        "preco_previsto": 32.945997999753835,
+        "erro": -8.654002000246166,
+        "erro_absoluto": 8.654002000246166
+      },
+      {
+        "title": "Three Wishes (River of Time: California #1)",
+        "category": "Science Fiction",
+        "preco_real": 44.18,
+        "preco_previsto": 35.531236608415846,
+        "erro": -8.648763391584154,
+        "erro_absoluto": 8.648763391584154
+      },
+      {
+        "title": "Lean In: Women, Work, and the Will to Lead",
+        "category": "Default",
+        "preco_real": 25.02,
+        "preco_previsto": 33.57917595532782,
+        "erro": 8.55917595532782,
+        "erro_absoluto": 8.55917595532782
+      },
+      {
+        "title": "Soft Apocalypse",
+        "category": "Science Fiction",
+        "preco_real": 26.12,
+        "preco_previsto": 34.661787980194894,
+        "erro": 8.541787980194893,
+        "erro_absoluto": 8.541787980194893
+      },
+      {
+        "title": "Dark Places",
+        "category": "Default",
+        "preco_real": 23.9,
+        "preco_previsto": 32.39784041687455,
+        "erro": 8.497840416874553,
+        "erro_absoluto": 8.497840416874553
+      },
+      {
+        "title": "The Martian (The Martian #1)",
+        "category": "Default",
+        "preco_real": 41.39,
+        "preco_previsto": 32.96838204027017,
+        "erro": -8.42161795972983,
+        "erro_absoluto": 8.42161795972983
+      },
+      {
+        "title": "10-Day Green Smoothie Cleanse: Lose Up to 15 Pounds in 10 Days!",
+        "category": "Health",
+        "preco_real": 49.71,
+        "preco_previsto": 41.4147815111245,
+        "erro": -8.295218488875499,
+        "erro_absoluto": 8.295218488875499
+      },
+      {
+        "title": "Paper and Fire (The Great Library #2)",
+        "category": "Fantasy",
+        "preco_real": 49.45,
+        "preco_previsto": 41.187059493159325,
+        "erro": -8.262940506840678,
+        "erro_absoluto": 8.262940506840678
+      },
+      {
+        "title": "Evicted: Poverty and Profit in the American City",
+        "category": "Add a comment",
+        "preco_real": 42.27,
+        "preco_previsto": 34.028903798997305,
+        "erro": -8.241096201002698,
+        "erro_absoluto": 8.241096201002698
+      },
+      {
+        "title": "Tell Me Three Things",
+        "category": "Young Adult",
+        "preco_real": 41.81,
+        "preco_previsto": 33.723841321334675,
+        "erro": -8.086158678665328,
+        "erro_absoluto": 8.086158678665328
+      },
+      {
+        "title": "It's Only the Himalayas",
+        "category": "Travel",
+        "preco_real": 45.17,
+        "preco_previsto": 37.12524351511329,
+        "erro": -8.044756484886712,
+        "erro_absoluto": 8.044756484886712
+      },
+      {
+        "title": "Born to Run: A Hidden Tribe, Superathletes, and the Greatest Race the World Has Never Seen",
+        "category": "Nonfiction",
+        "preco_real": 27.35,
+        "preco_previsto": 34.96996663308229,
+        "erro": 7.619966633082285,
+        "erro_absoluto": 7.619966633082285
+      },
+      {
+        "title": "The 14th Colony (Cotton Malone #11)",
+        "category": "Thriller",
+        "preco_real": 39.24,
+        "preco_previsto": 31.9136887835187,
+        "erro": -7.326311216481301,
+        "erro_absoluto": 7.326311216481301
+      },
+      {
+        "title": "Settling the Score (The Summer Games #1)",
+        "category": "Sports and Games",
+        "preco_real": 44.91,
+        "preco_previsto": 37.76934206029636,
+        "erro": -7.140657939703637,
+        "erro_absoluto": 7.140657939703637
+      },
+      {
+        "title": "While You Were Mine",
+        "category": "Historical Fiction",
+        "preco_real": 41.32,
+        "preco_previsto": 34.403056514540815,
+        "erro": -6.916943485459186,
+        "erro_absoluto": 6.916943485459186
+      },
+      {
+        "title": "Worlds Elsewhere: Journeys Around Shakespeareâs Globe",
+        "category": "Nonfiction",
+        "preco_real": 40.3,
+        "preco_previsto": 33.390531170141294,
+        "erro": -6.909468829858703,
+        "erro_absoluto": 6.909468829858703
+      },
+      {
+        "title": "Poses for Artists Volume 1 - Dynamic and Sitting Poses: An Essential Reference for Figure Drawing and the Human Form",
+        "category": "Default",
+        "preco_real": 41.06,
+        "preco_previsto": 34.24103243610903,
+        "erro": -6.818967563890972,
+        "erro_absoluto": 6.818967563890972
+      },
+      {
+        "title": "Rhythm, Chord & Malykhin",
+        "category": "Romance",
+        "preco_real": 28.34,
+        "preco_previsto": 35.12851305860724,
+        "erro": 6.78851305860724,
+        "erro_absoluto": 6.78851305860724
+      },
+      {
+        "title": "Saga, Volume 1 (Saga (Collected Editions) #1)",
+        "category": "Sequential Art",
+        "preco_real": 28.48,
+        "preco_previsto": 35.249389831947255,
+        "erro": 6.7693898319472545,
+        "erro_absoluto": 6.7693898319472545
+      },
+      {
+        "title": "A Summer In Europe",
+        "category": "Travel",
+        "preco_real": 44.34,
+        "preco_previsto": 37.58910628931154,
+        "erro": -6.750893710688466,
+        "erro_absoluto": 6.750893710688466
+      },
+      {
+        "title": "My Kind of Crazy",
+        "category": "Young Adult",
+        "preco_real": 40.36,
+        "preco_previsto": 33.654741563745944,
+        "erro": -6.705258436254056,
+        "erro_absoluto": 6.705258436254056
+      },
+      {
+        "title": "Where She Went (If I Stay #2)",
+        "category": "Young Adult",
+        "preco_real": 41.73,
+        "preco_previsto": 35.06609013544989,
+        "erro": -6.6639098645501065,
+        "erro_absoluto": 6.6639098645501065
+      },
+      {
+        "title": "Furiously Happy: A Funny Book About Horrible Things",
+        "category": "Nonfiction",
+        "preco_real": 41.46,
+        "preco_previsto": 34.80409329604416,
+        "erro": -6.655906703955843,
+        "erro_absoluto": 6.655906703955843
+      },
+      {
+        "title": "Steve Jobs",
+        "category": "Default",
+        "preco_real": 39.5,
+        "preco_previsto": 33.026963690715036,
+        "erro": -6.473036309284964,
+        "erro_absoluto": 6.473036309284964
+      },
+      {
+        "title": "Drama",
+        "category": "Default",
+        "preco_real": 38.7,
+        "preco_previsto": 32.32671768227518,
+        "erro": -6.373282317724822,
+        "erro_absoluto": 6.373282317724822
+      },
+      {
+        "title": "Like Never Before (Walker Family #2)",
+        "category": "Christian Fiction",
+        "preco_real": 28.77,
+        "preco_previsto": 35.027825028007534,
+        "erro": 6.2578250280075345,
+        "erro_absoluto": 6.2578250280075345
+      },
+      {
+        "title": "A Fierce and Subtle Poison",
+        "category": "Young Adult",
+        "preco_real": 28.13,
+        "preco_previsto": 34.364033342325214,
+        "erro": 6.234033342325215,
+        "erro_absoluto": 6.234033342325215
+      },
+      {
+        "title": "Skip Beat!, Vol. 01 (Skip Beat! #1)",
+        "category": "Sequential Art",
+        "preco_real": 42.12,
+        "preco_previsto": 35.985635463677525,
+        "erro": -6.134364536322472,
+        "erro_absoluto": 6.134364536322472
+      },
+      {
+        "title": "Doctor Sleep (The Shining #2)",
+        "category": "Horror",
+        "preco_real": 40.12,
+        "preco_previsto": 34.08261037316145,
+        "erro": -6.0373896268385465,
+        "erro_absoluto": 6.0373896268385465
+      },
+      {
+        "title": "Rise of the Rocket Girls: The Women Who Propelled Us, from Missiles to the Moon to Mars",
+        "category": "Nonfiction",
+        "preco_real": 41.67,
+        "preco_previsto": 35.684690355468426,
+        "erro": -5.985309644531576,
+        "erro_absoluto": 5.985309644531576
+      },
+      {
+        "title": "Modern Romance",
+        "category": "Add a comment",
+        "preco_real": 28.26,
+        "preco_previsto": 34.10684583491235,
+        "erro": 5.846845834912347,
+        "erro_absoluto": 5.846845834912347
+      },
+      {
+        "title": "Fables, Vol. 1: Legends in Exile (Fables #1)",
+        "category": "Sequential Art",
+        "preco_real": 41.62,
+        "preco_previsto": 36.129192533254695,
+        "erro": -5.490807466745302,
+        "erro_absoluto": 5.490807466745302
+      },
+      {
+        "title": "The Hook Up (Game On #1)",
+        "category": "New Adult",
+        "preco_real": 36.29,
+        "preco_previsto": 41.73797140621117,
+        "erro": 5.447971406211174,
+        "erro_absoluto": 5.447971406211174
+      },
+      {
+        "title": "Nightingale, Sing",
+        "category": "Young Adult",
+        "preco_real": 38.28,
+        "preco_previsto": 32.90040899167306,
+        "erro": -5.3795910083269405,
+        "erro_absoluto": 5.3795910083269405
+      },
+      {
+        "title": "The Glittering Court (The Glittering Court #1)",
+        "category": "Fantasy",
+        "preco_real": 44.28,
+        "preco_previsto": 38.91183159047455,
+        "erro": -5.3681684095254525,
+        "erro_absoluto": 5.3681684095254525
+      },
+      {
+        "title": "The Shining (The Shining #1)",
+        "category": "Default",
+        "preco_real": 27.88,
+        "preco_previsto": 33.138290155970225,
+        "erro": 5.258290155970226,
+        "erro_absoluto": 5.258290155970226
+      },
+      {
+        "title": "The Story of Art",
+        "category": "Art",
+        "preco_real": 41.14,
+        "preco_previsto": 36.15615031354425,
+        "erro": -4.983849686455748,
+        "erro_absoluto": 4.983849686455748
+      },
+      {
+        "title": "Death by Leisure: A Cautionary Tale",
+        "category": "Default",
+        "preco_real": 37.51,
+        "preco_previsto": 32.602925353900964,
+        "erro": -4.9070746460990335,
+        "erro_absoluto": 4.9070746460990335
+      },
+      {
+        "title": "You can't bury them all: Poems",
+        "category": "Poetry",
+        "preco_real": 33.63,
+        "preco_previsto": 38.32485987888135,
+        "erro": 4.694859878881346,
+        "erro_absoluto": 4.694859878881346
+      },
+      {
+        "title": "The Artist's Way: A Spiritual Path to Higher Creativity",
+        "category": "Nonfiction",
+        "preco_real": 38.49,
+        "preco_previsto": 34.202772746112025,
+        "erro": -4.287227253887977,
+        "erro_absoluto": 4.287227253887977
+      },
+      {
+        "title": "Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More: A Foolproof Guide to Making Small Batch Jams, Jellies, Pickles, Condiments, and More",
+        "category": "Food and Drink",
+        "preco_real": 30.52,
+        "preco_previsto": 34.80577452170347,
+        "erro": 4.28577452170347,
+        "erro_absoluto": 4.28577452170347
+      },
+      {
+        "title": "Rook",
+        "category": "Add a comment",
+        "preco_real": 37.86,
+        "preco_previsto": 33.63423223341954,
+        "erro": -4.225767766580461,
+        "erro_absoluto": 4.225767766580461
+      },
+      {
+        "title": "The Odyssey",
+        "category": "Add a comment",
+        "preco_real": 29.64,
+        "preco_previsto": 33.80377224521613,
+        "erro": 4.16377224521613,
+        "erro_absoluto": 4.16377224521613
+      },
+      {
+        "title": "Fruits Basket, Vol. 1 (Fruits Basket #1)",
+        "category": "Sequential Art",
+        "preco_real": 40.28,
+        "preco_previsto": 36.30533973787321,
+        "erro": -3.9746602621267897,
+        "erro_absoluto": 3.9746602621267897
+      },
+      {
+        "title": "Done Rubbed Out (Reightman & Bailey #1)",
+        "category": "Default",
+        "preco_real": 37.72,
+        "preco_previsto": 33.80520557427446,
+        "erro": -3.914794425725539,
+        "erro_absoluto": 3.914794425725539
+      },
+      {
+        "title": "Under the Banner of Heaven: A Story of Violent Faith",
+        "category": "Nonfiction",
+        "preco_real": 30.0,
+        "preco_previsto": 33.86322663052771,
+        "erro": 3.8632266305277128,
+        "erro_absoluto": 3.8632266305277128
+      },
+      {
+        "title": "Man's Search for Meaning",
+        "category": "Nonfiction",
+        "preco_real": 29.48,
+        "preco_previsto": 33.298339873471775,
+        "erro": 3.818339873471775,
+        "erro_absoluto": 3.818339873471775
+      },
+      {
+        "title": "A Gathering of Shadows (Shades of Magic #2)",
+        "category": "Fantasy",
+        "preco_real": 44.81,
+        "preco_previsto": 40.99948779281408,
+        "erro": -3.8105122071859228,
+        "erro_absoluto": 3.8105122071859228
+      },
+      {
+        "title": "A la Mode: 120 Recipes in 60 Pairings: Pies, Tarts, Cakes, Crisps, and More Topped with Ice Cream, Gelato, Frozen Custard, and More",
+        "category": "Food and Drink",
+        "preco_real": 38.77,
+        "preco_previsto": 35.02269557730378,
+        "erro": -3.7473044226962244,
+        "erro_absoluto": 3.7473044226962244
+      },
+      {
+        "title": "The Jazz of Physics: The Secret Link Between Music and the Structure of the Universe",
+        "category": "Nonfiction",
+        "preco_real": 38.71,
+        "preco_previsto": 35.02208597900002,
+        "erro": -3.6879140209999832,
+        "erro_absoluto": 3.6879140209999832
+      },
+      {
+        "title": "The Paris Wife",
+        "category": "Default",
+        "preco_real": 36.8,
+        "preco_previsto": 33.12641146362171,
+        "erro": -3.67358853637829,
+        "erro_absoluto": 3.67358853637829
+      },
+      {
+        "title": "Mrs. Houdini",
+        "category": "Historical Fiction",
+        "preco_real": 30.25,
+        "preco_previsto": 33.82309516300145,
+        "erro": 3.5730951630014474,
+        "erro_absoluto": 3.5730951630014474
+      },
+      {
+        "title": "The Gutsy Girl: Escapades for Your Life of Epic Adventure",
+        "category": "Nonfiction",
+        "preco_real": 37.13,
+        "preco_previsto": 33.56104696571076,
+        "erro": -3.568953034289244,
+        "erro_absoluto": 3.568953034289244
+      },
+      {
+        "title": "Data, A Love Story: How I Gamed Online Dating to Meet My Match",
+        "category": "Nonfiction",
+        "preco_real": 32.35,
+        "preco_previsto": 35.63275138155707,
+        "erro": 3.2827513815570697,
+        "erro_absoluto": 3.2827513815570697
+      },
+      {
+        "title": "The Faith of Christopher Hitchens: The Restless Soul of the World's Most Notorious Atheist",
+        "category": "Biography",
+        "preco_real": 39.55,
+        "preco_previsto": 36.2937638031398,
+        "erro": -3.2562361968602005,
+        "erro_absoluto": 3.2562361968602005
+      },
+      {
+        "title": "The Art Book",
+        "category": "Art",
+        "preco_real": 32.34,
+        "preco_previsto": 35.48358792254493,
+        "erro": 3.143587922544924,
+        "erro_absoluto": 3.143587922544924
+      },
+      {
+        "title": "Stiff: The Curious Lives of Human Cadavers",
+        "category": "Nonfiction",
+        "preco_real": 36.74,
+        "preco_previsto": 33.627910122480216,
+        "erro": -3.112089877519786,
+        "erro_absoluto": 3.112089877519786
+      },
+      {
+        "title": "We the People: The Modern-Day Figures Who Have Reshaped and Affirmed the Founding Fathers' Vision of America",
+        "category": "Nonfiction",
+        "preco_real": 31.95,
+        "preco_previsto": 35.00846730394405,
+        "erro": 3.0584673039440524,
+        "erro_absoluto": 3.0584673039440524
+      },
+      {
+        "title": "Most Wanted",
+        "category": "Mystery",
+        "preco_real": 35.28,
+        "preco_previsto": 32.295075352575545,
+        "erro": -2.9849246474244566,
+        "erro_absoluto": 2.9849246474244566
+      },
+      {
+        "title": "The Nicomachean Ethics",
+        "category": "Philosophy",
+        "preco_real": 36.34,
+        "preco_previsto": 33.461568586224516,
+        "erro": -2.8784314137754876,
+        "erro_absoluto": 2.8784314137754876
+      },
+      {
+        "title": "Please Kill Me: The Uncensored Oral History of Punk",
+        "category": "Music",
+        "preco_real": 31.19,
+        "preco_previsto": 34.05429943267746,
+        "erro": 2.864299432677459,
+        "erro_absoluto": 2.864299432677459
+      },
+      {
+        "title": "The Wedding Pact (The O'Malleys #2)",
+        "category": "Romance",
+        "preco_real": 32.61,
+        "preco_previsto": 35.38167989427689,
+        "erro": 2.771679894276893,
+        "erro_absoluto": 2.771679894276893
+      },
+      {
+        "title": "Batman: Europa",
+        "category": "Sequential Art",
+        "preco_real": 32.01,
+        "preco_previsto": 34.70467300957125,
+        "erro": 2.694673009571254,
+        "erro_absoluto": 2.694673009571254
+      },
+      {
+        "title": "Icing (Aces Hockey #2)",
+        "category": "Sports and Games",
+        "preco_real": 40.44,
+        "preco_previsto": 37.85502527922437,
+        "erro": -2.5849747207756266,
+        "erro_absoluto": 2.5849747207756266
+      },
+      {
+        "title": "Buying In: The Secret Dialogue Between What We Buy and Who We Are",
+        "category": "Nonfiction",
+        "preco_real": 37.8,
+        "preco_previsto": 35.59519820645715,
+        "erro": -2.204801793542849,
+        "erro_absoluto": 2.204801793542849
+      },
+      {
+        "title": "Annie on My Mind",
+        "category": "Young Adult",
+        "preco_real": 36.83,
+        "preco_previsto": 34.79745171962394,
+        "erro": -2.032548280376055,
+        "erro_absoluto": 2.032548280376055
+      },
+      {
+        "title": "Bitch Planet, Vol. 1: Extraordinary Machine (Bitch Planet (Collected Editions))",
+        "category": "Sequential Art",
+        "preco_real": 37.92,
+        "preco_previsto": 35.959803855466895,
+        "erro": -1.960196144533107,
+        "erro_absoluto": 1.960196144533107
+      },
+      {
+        "title": "Zero History (Blue Ant #3)",
+        "category": "Default",
+        "preco_real": 34.77,
+        "preco_previsto": 32.87056326730179,
+        "erro": -1.899436732698213,
+        "erro_absoluto": 1.899436732698213
+      },
+      {
+        "title": "Off Sides (Off #1)",
+        "category": "New Adult",
+        "preco_real": 39.45,
+        "preco_previsto": 41.30967914515307,
+        "erro": 1.8596791451530663,
+        "erro_absoluto": 1.8596791451530663
+      },
+      {
+        "title": "23 Degrees South: A Tropical Tale of Changing Whether...",
+        "category": "Add a comment",
+        "preco_real": 35.79,
+        "preco_previsto": 34.004477176697286,
+        "erro": -1.7855228233027134,
+        "erro_absoluto": 1.7855228233027134
+      },
+      {
+        "title": "Life",
+        "category": "Music",
+        "preco_real": 31.58,
+        "preco_previsto": 33.24004819562286,
+        "erro": 1.6600481956228634,
+        "erro_absoluto": 1.6600481956228634
+      },
+      {
+        "title": "The Whale",
+        "category": "Childrens",
+        "preco_real": 35.96,
+        "preco_previsto": 34.41641816074559,
+        "erro": -1.5435818392544078,
+        "erro_absoluto": 1.5435818392544078
+      },
+      {
+        "title": "The Dream Thieves (The Raven Cycle #2)",
+        "category": "Default",
+        "preco_real": 34.5,
+        "preco_previsto": 32.968864027166504,
+        "erro": -1.5311359728334963,
+        "erro_absoluto": 1.5311359728334963
+      },
+      {
+        "title": "Manuscript Found in Accra",
+        "category": "Add a comment",
+        "preco_real": 34.98,
+        "preco_previsto": 33.80779344695177,
+        "erro": -1.1722065530482269,
+        "erro_absoluto": 1.1722065530482269
+      },
+      {
+        "title": "Rip it Up and Start Again",
+        "category": "Music",
+        "preco_real": 35.02,
+        "preco_previsto": 33.97287280001373,
+        "erro": -1.0471271999862708,
+        "erro_absoluto": 1.0471271999862708
+      },
+      {
+        "title": "The Dirty Little Secrets of Getting Your Dream Job",
+        "category": "Business",
+        "preco_real": 33.34,
+        "preco_previsto": 32.36909606752274,
+        "erro": -0.9709039324772633,
+        "erro_absoluto": 0.9709039324772633
+      },
+      {
+        "title": "The Secret Healer",
+        "category": "Historical Fiction",
+        "preco_real": 34.56,
+        "preco_previsto": 33.670670326684956,
+        "erro": -0.8893296733150464,
+        "erro_absoluto": 0.8893296733150464
+      },
+      {
+        "title": "Angels Walking (Angels Walking #1)",
+        "category": "Add a comment",
+        "preco_real": 34.2,
+        "preco_previsto": 33.41768330692395,
+        "erro": -0.782316693076055,
+        "erro_absoluto": 0.782316693076055
+      },
+      {
+        "title": "The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change",
+        "category": "Default",
+        "preco_real": 33.17,
+        "preco_previsto": 33.92978026517334,
+        "erro": 0.7597802651733403,
+        "erro_absoluto": 0.7597802651733403
+      },
+      {
+        "title": "The Rest Is Noise: Listening to the Twentieth Century",
+        "category": "Add a comment",
+        "preco_real": 34.77,
+        "preco_previsto": 34.14255762074807,
+        "erro": -0.6274423792519315,
+        "erro_absoluto": 0.6274423792519315
+      },
+      {
+        "title": "Imperfect Harmony",
+        "category": "Romance",
+        "preco_real": 34.74,
+        "preco_previsto": 35.19177070528982,
+        "erro": 0.45177070528981744,
+        "erro_absoluto": 0.45177070528981744
       }
     ]
   }

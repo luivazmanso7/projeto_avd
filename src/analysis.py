@@ -33,6 +33,8 @@ NUMERIC_FEATURES = [
 ]
 
 CATEGORICAL_FEATURES = ["category", "availability_status"]
+MIN_MODEL_ROWS = 40
+BASELINE_MODEL_NAME = "Baseline mediana"
 
 FEATURE_LABELS = {
     "rating": "Avaliacao",
@@ -196,7 +198,7 @@ def build_preprocessor() -> ColumnTransformer:
 
 def candidate_regressors() -> dict[str, object]:
     return {
-        "Baseline mediana": DummyRegressor(strategy="median"),
+        BASELINE_MODEL_NAME: DummyRegressor(strategy="median"),
         "Ridge regularizado": Ridge(alpha=8.0),
         "Random Forest": RandomForestRegressor(
             n_estimators=320,
@@ -227,7 +229,7 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
     metadata_columns = ["title"]
     model_columns = NUMERIC_FEATURES + CATEGORICAL_FEATURES + ["price_gbp"]
     model_df = df[metadata_columns + model_columns].dropna()
-    if len(model_df) < 40:
+    if len(model_df) < MIN_MODEL_ROWS:
         return {"available": False, "reason": "Amostra insuficiente para treino e teste."}
 
     x = model_df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
@@ -279,7 +281,13 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
         )
 
     metrics_df = pd.DataFrame(metrics).sort_values(["mae_cv", "mae_teste"]).reset_index(drop=True)
-    selected_name = str(metrics_df.iloc[0]["modelo"])
+    best_metric_name = str(metrics_df.iloc[0]["modelo"])
+    simulator_candidates = metrics_df[~metrics_df["modelo"].eq(BASELINE_MODEL_NAME)]
+    selected_name = (
+        str(simulator_candidates.iloc[0]["modelo"])
+        if not simulator_candidates.empty
+        else best_metric_name
+    )
     metrics_df["selecionado"] = metrics_df["modelo"].eq(selected_name)
 
     selected_model = fitted_models[selected_name]
@@ -315,7 +323,7 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
     )
 
     baseline_mae = float(
-        metrics_df.loc[metrics_df["modelo"].eq("Baseline mediana"), "mae_teste"].iloc[0]
+        metrics_df.loc[metrics_df["modelo"].eq(BASELINE_MODEL_NAME), "mae_teste"].iloc[0]
     )
     selected_mae = float(metrics_df.loc[metrics_df["selecionado"], "mae_teste"].iloc[0])
     improvement = ((baseline_mae - selected_mae) / baseline_mae) * 100 if baseline_mae else 0.0
@@ -323,6 +331,7 @@ def build_ml_model(df: pd.DataFrame, include_estimator: bool = False) -> dict[st
     result: dict[str, object] = {
         "available": True,
         "algorithm": selected_name,
+        "best_metric_algorithm": best_metric_name,
         "train_rows": int(len(x_train)),
         "test_rows": int(len(x_test)),
         "cv_folds": int(cv_folds),

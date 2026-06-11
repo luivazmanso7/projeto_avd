@@ -6,6 +6,8 @@ import pandas as pd
 import streamlit as st
 
 from src.analysis import (
+    CATEGORICAL_FEATURES,
+    NUMERIC_FEATURES,
     anova_by_group,
     build_ml_model,
     category_summary,
@@ -76,6 +78,10 @@ PLOT_CONFIG = {
     "responsive": True,
 }
 
+MIN_MODEL_ROWS = 40
+BASELINE_MODEL_NAME = "Baseline mediana"
+MODEL_REQUIRED_COLUMNS = ["title", "price_gbp", *NUMERIC_FEATURES, *CATEGORICAL_FEATURES]
+
 
 def currency(value: float) -> str:
     return f"£{value:,.2f}"
@@ -121,7 +127,7 @@ def train_ml_report(df: pd.DataFrame) -> dict[str, object]:
 
 def sidebar_filters(df: pd.DataFrame) -> pd.DataFrame:
     st.sidebar.header("Filtros")
-    max_pages = st.sidebar.slider("Paginas para nova coleta", 1, 50, 20, 1)
+    max_pages = st.sidebar.slider("Paginas para nova coleta", 2, 50, 50, 1)
     if st.sidebar.button("Atualizar coleta", type="primary"):
         with st.spinner("Coletando catalogo e paginas de detalhe..."):
             collect_data(max_pages=max_pages)
@@ -392,14 +398,40 @@ def render_price_simulator(df: pd.DataFrame, model_report: dict[str, object]) ->
     difference.metric("Diferenca", currency(delta))
 
 
-def render_model(df: pd.DataFrame) -> None:
-    model_report = train_ml_report(df)
+def count_ml_ready_rows(df: pd.DataFrame) -> int:
+    missing_columns = [column for column in MODEL_REQUIRED_COLUMNS if column not in df.columns]
+    if missing_columns:
+        return 0
+    return int(df[MODEL_REQUIRED_COLUMNS].dropna().shape[0])
+
+
+def select_model_training_data(filtered_df: pd.DataFrame, full_df: pd.DataFrame) -> pd.DataFrame:
+    filtered_rows = count_ml_ready_rows(filtered_df)
+    full_rows = count_ml_ready_rows(full_df)
+
+    if filtered_rows >= MIN_MODEL_ROWS:
+        return filtered_df
+
+    if full_rows >= MIN_MODEL_ROWS:
+        st.info(
+            f"O recorte atual tem {filtered_rows} livros validos para ML. "
+            f"Para manter o simulador disponivel, o modelo foi treinado com "
+            f"o dataset completo ({full_rows} livros)."
+        )
+        return full_df
+
+    return filtered_df
+
+
+def render_model(filtered_df: pd.DataFrame, full_df: pd.DataFrame) -> None:
+    training_df = select_model_training_data(filtered_df, full_df)
+    model_report = train_ml_report(training_df)
     if not model_report.get("available"):
         st.warning(str(model_report.get("reason", "Modelo indisponivel.")))
         return
 
     model, mae, rmse, r2, improvement = st.columns(5)
-    model.metric("Modelo", str(model_report["algorithm"]))
+    model.metric("Modelo do simulador", str(model_report["algorithm"]))
     mae.metric("MAE teste", currency(float(model_report["mae"])))
     rmse.metric("RMSE teste", currency(float(model_report["rmse"])))
     r2.metric("R2 teste", f"{float(model_report['r2']):.3f}")
@@ -409,7 +441,7 @@ def render_model(df: pd.DataFrame) -> None:
     )
     if float(model_report["improvement_vs_baseline_pct"]) <= 0:
         st.info(
-            "A baseline venceu neste recorte. Isso indica que os atributos coletados "
+            "A baseline venceu nesta base de treino. Isso indica que os atributos coletados "
             "nao explicam o preco melhor do que usar a mediana historica."
         )
 
@@ -429,9 +461,21 @@ def render_model(df: pd.DataFrame) -> None:
             config=PLOT_CONFIG,
         )
 
-    st.subheader("Metrica por modelo")
+    st.subheader("Comparacao de modelos")
+    model_metrics = model_report["model_metrics"].assign(
+        uso=lambda data: data.apply(
+            lambda row: (
+                "Usado no simulador"
+                if row["selecionado"]
+                else "Benchmark"
+                if row["modelo"] == BASELINE_MODEL_NAME
+                else "Comparado"
+            ),
+            axis=1,
+        )
+    )
     st.dataframe(
-        model_report["model_metrics"].assign(
+        model_metrics.drop(columns=["selecionado"]).assign(
             mae_cv=lambda data: data["mae_cv"].round(2),
             rmse_cv=lambda data: data["rmse_cv"].round(2),
             r2_cv=lambda data: data["r2_cv"].round(3),
@@ -453,7 +497,7 @@ def render_model(df: pd.DataFrame) -> None:
             config=PLOT_CONFIG,
         )
     with right:
-        render_price_simulator(df, model_report)
+        render_price_simulator(training_df, model_report)
 
     st.subheader("Maiores erros no teste")
     st.dataframe(
@@ -491,7 +535,7 @@ def main() -> None:
         st.info("Nenhum dataset encontrado. Execute a coleta pela barra lateral.")
         with st.sidebar:
             st.header("Coleta inicial")
-            max_pages = st.slider("Paginas", 1, 50, 20, 1)
+            max_pages = st.slider("Paginas", 2, 50, 50, 1)
             if st.button("Executar coleta", type="primary"):
                 with st.spinner("Coletando dados..."):
                     collect_data(max_pages=max_pages)
@@ -517,7 +561,7 @@ def main() -> None:
     with segments:
         render_segments(filtered)
     with model:
-        render_model(filtered)
+        render_model(filtered, df)
     with data:
         render_data(filtered)
 
